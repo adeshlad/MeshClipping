@@ -10,6 +10,7 @@ public:
 	Plane();
 	~Plane();
 
+	//Point3D pointOnPlane() const;
 	Point3D normal() const;
 	double constant() const;
 

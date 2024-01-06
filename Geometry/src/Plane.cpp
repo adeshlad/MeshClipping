@@ -12,6 +12,11 @@ Plane::~Plane()
 
 }
 
+//Point3D Plane::pointOnPlane() const
+//{
+//	return mPointOnPlane;
+//}
+
 Point3D Plane::normal() const
 {
 	return mNormal;

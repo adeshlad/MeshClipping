@@ -23,8 +23,8 @@ int main()
 	plane.setNormal(Point3D(2, 3, -1));
 	//plane.setConstant(7);
 
-	Point3D p1(1, 2, -1);
-	Point3D p2(3, 4, 5);
+	Point3D p1(6.56375, -4.9381, 5);
+	Point3D p2(8.78539, 3.7166, 4.52403);
 
 	Clipper clipper;	
  	Point3D	pt = clipper.linePlaneIntersection(p1, p2, plane);
@@ -34,5 +34,5 @@ int main()
 	//writer.write("F://adesh_workspace//MeshClipping//Writer//resources//op1.txt", triangulation);
 	//writer.write("F://adesh_workspace//MeshClipping//Writer//resources//op2.txt", newTriangulation);
 
-	std::cout << "done";
+	std::cout << pt.x() << " " << pt.y() << " " << pt.z();
 }
