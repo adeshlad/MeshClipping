@@ -1,0 +1,2 @@
+#define WRITER_API __declspec(dllexport)
+#define WRITER_API __declspec(dllimport)
