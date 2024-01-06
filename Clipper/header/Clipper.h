@@ -14,10 +14,10 @@ public:
 
 	Triangulation clipWithPlane(Triangulation inTriangles, Plane inPlane);
 
+	Point3D linePlaneIntersection(Point3D inP1, Point3D inP2, Plane inPlane);
 private:
 	bool isAbove(Plane inPlane, Point3D inPoint);
 
-	Point3D linePlaneIntersection(Point3D inP1, Point3D inP2, Plane inPlane);
 
 	double dot(const Point3D inP1, const Point3D inP2);
 };

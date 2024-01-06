@@ -23,8 +23,8 @@ int main()
 	plane.setNormal(Point3D(2, 3, -1));
 	//plane.setConstant(7);
 
-	Point3D p1(6.56375, -4.9381, 5);
-	Point3D p2(8.78539, 3.7166, 4.52403);
+	Point3D p1(-6, 0, 4);
+	Point3D p2(4.64264, 11.01722, 7.53331);
 
 	Clipper clipper;	
  	Point3D	pt = clipper.linePlaneIntersection(p1, p2, plane);
