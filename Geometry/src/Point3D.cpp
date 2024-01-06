@@ -14,6 +14,20 @@ Point3D::~Point3D()
 
 }
 
+Point3D::Point3D(const Point3D& other) : mX(other.mX), mY(other.mY), mZ(other.mZ)
+{
+
+}
+
+Point3D& Point3D::operator=(const Point3D& other)
+{
+    mX = other.mX;
+    mY = other.mY;
+    mZ = other.mZ;
+
+    return *this;
+}
+
 double Point3D::x() const
 {
     return mX;

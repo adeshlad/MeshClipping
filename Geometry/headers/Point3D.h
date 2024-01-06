@@ -8,6 +8,10 @@ public:
 	Point3D(double inX, double inY, double inZ);
 	~Point3D();
 
+	Point3D(const Point3D& other);
+
+	Point3D& operator=(const Point3D& other);
+
 	double x() const;
 	double y() const;
 	double z() const;
@@ -15,6 +19,8 @@ public:
 	void setX(double inX);
 	void setY(double inY);
 	void setZ(double inZ);
+
+
 
 private:
 	double mX;
