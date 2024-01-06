@@ -4,6 +4,7 @@
 #include "Triangle.h"
 #include "Plane.h"
 #include "Point3D.h"
+#include "Boundary.h"
 
 #include <iostream>
 #include <vector>
@@ -19,7 +20,7 @@ int main()
 	Triangulation triangulation(triangles);
 
 	Plane plane;
-	plane.setPointOnPlane(Point3D(1, 2, 1));
+	plane.setPointOnPlane(Point3D(2, 2, 1));
 	plane.setNormal(Point3D(2, 3, -1));
 	//plane.setConstant(7);
 
@@ -30,9 +31,11 @@ int main()
  	//Point3D	pt = clipper.linePlaneIntersection(p1, p2, plane);
 	Triangulation newTriangulation = clipper.clipWithPlane(triangulation, plane);
 
-	Writer writer;
-	//writer.write("F://adesh_workspace//MeshClipping//Writer//resources//op1.txt", triangulation);
-	writer.write("F://adesh_workspace//MeshClipping//Writer//resources//op2.txt", newTriangulation);
+	Boundary boundary = clipper.triangulationPlaneIntersection(triangulation, plane);
 
-	//std::cout << pt.x() << " " << pt.y() << " " << pt.z();
+	Writer writer;
+	writer.write("F://adesh_workspace//MeshClipping//Writer//resources//op1.txt", newTriangulation);
+	writer.write("F://adesh_workspace//MeshClipping//Writer//resources//op2.txt", boundary);
+
+	std::cout << "done";
 }

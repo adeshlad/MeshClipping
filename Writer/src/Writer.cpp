@@ -28,3 +28,15 @@ void Writer::write(std::string filePath, Triangulation& inTriangulation)
     }
     dataFile.close();
 };
+
+void Writer::write(std::string filePath, Boundary& inBoundary)
+{
+    std::ofstream dataFile;
+    dataFile.open(filePath);
+
+    for (Point3D point : inBoundary.boundary())
+    {
+        dataFile << point.x() << " " << point.y() << " " << point.z() << std::endl;
+    }
+    dataFile.close();
+}

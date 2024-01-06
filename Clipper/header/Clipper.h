@@ -5,6 +5,9 @@
 #include "Point3D.h"
 #include "Plane.h"
 #include "Triangulation.h"
+#include "Boundary.h"
+
+#include <vector>
 
 class CLIPPER_API Clipper
 {
@@ -14,10 +17,12 @@ public:
 
 	Triangulation clipWithPlane(Triangulation inTriangles, Plane inPlane);
 
-	Point3D linePlaneIntersection(Point3D inP1, Point3D inP2, Plane inPlane);
-private:
-	bool isAbove(Plane inPlane, Point3D inPoint);
+	Boundary triangulationPlaneIntersection(Triangulation inTriangles, Plane inPlane);
 
+private:
+	Point3D linePlaneIntersection(Point3D inP1, Point3D inP2, Plane inPlane);
+
+	bool isAbove(Plane inPlane, Point3D inPoint);
 
 	double dot(const Point3D inP1, const Point3D inP2);
 };

@@ -33,7 +33,7 @@ Triangulation Clipper::clipWithPlane(Triangulation inTriangles, Plane inPlane)
 		{
 			Point3D unclippedP1(0, 0, 0);
 			Point3D unclippedP2(0, 0, 0);
-			Point3D clippedP3(0, 0, 0);
+			Point3D clippedPt(0, 0, 0);
 
 			if (isAbove(inPlane, triangle.p1()))
 			{
@@ -42,23 +42,23 @@ Triangulation Clipper::clipWithPlane(Triangulation inTriangles, Plane inPlane)
 				if (isAbove(inPlane, triangle.p2()))
 				{
 					unclippedP2 = triangle.p2();
-					clippedP3 = triangle.p3();
+					clippedPt = triangle.p3();
 				}
 				else
 				{
 					unclippedP2 = triangle.p3();
-					clippedP3 = triangle.p2();
+					clippedPt = triangle.p2();
 				}
 			}
 			else
 			{
 				unclippedP1 = triangle.p2();
 				unclippedP2 = triangle.p3();
-				clippedP3 = triangle.p1();
+				clippedPt = triangle.p1();
 			}
 
-			Point3D newP3 = linePlaneIntersection(unclippedP1, clippedP3, inPlane);
-			Point3D newP4 = linePlaneIntersection(unclippedP2, clippedP3, inPlane);
+			Point3D newP3 = linePlaneIntersection(unclippedP1, clippedPt, inPlane);
+			Point3D newP4 = linePlaneIntersection(unclippedP2, clippedPt, inPlane);
 
 			Triangle newTriangle1(unclippedP1, unclippedP1, newP3);
 			Triangle newTriangle2(unclippedP1, newP3, newP4);
@@ -69,38 +69,122 @@ Triangulation Clipper::clipWithPlane(Triangulation inTriangles, Plane inPlane)
 
 		else if (count == 1)
 		{
-			Point3D unclippedP(0, 0, 0);
+			Point3D unclippedPt(0, 0, 0);
 			Point3D clippedP1(0, 0, 0);
 			Point3D clippedP2(0, 0, 0);
 
 			if (isAbove(inPlane, triangle.p1()))
 			{
-				unclippedP = triangle.p1();
+				unclippedPt = triangle.p1();
 				clippedP1 = triangle.p2();
 				clippedP2 = triangle.p3();
 			}
 			else if (isAbove(inPlane, triangle.p2()))
 			{
-				unclippedP = triangle.p2();
+				unclippedPt = triangle.p2();
 				clippedP1 = triangle.p1();
 				clippedP2 = triangle.p3();
 			}
 			else
 			{
-				unclippedP = triangle.p3();
+				unclippedPt = triangle.p3();
 				clippedP1 = triangle.p1();
 				clippedP2 = triangle.p2();
 			}
 
-			Point3D newP2 = linePlaneIntersection(unclippedP, clippedP1, inPlane);
-			Point3D newP3 = linePlaneIntersection(unclippedP, clippedP2, inPlane);
+			Point3D newP2 = linePlaneIntersection(unclippedPt, clippedP1, inPlane);
+			Point3D newP3 = linePlaneIntersection(unclippedPt, clippedP2, inPlane);
 
-			Triangle triangle(unclippedP, newP2, newP3);
+			Triangle triangle(unclippedPt, newP2, newP3);
 			clippedTriangulation.push_back(triangle);
 		}
 	}
 
 	return Triangulation(clippedTriangulation);
+}
+
+Boundary Clipper::triangulationPlaneIntersection(Triangulation inTriangles, Plane inPlane)
+{
+	Boundary boundary;
+
+	for (Triangle triangle : inTriangles.triangles())
+	{
+		int count = isAbove(inPlane, triangle.p1()) + isAbove(inPlane, triangle.p2()) + isAbove(inPlane, triangle.p3());
+
+		if (count == 3)
+		{
+			continue;
+		}
+
+		else if (count == 2)
+		{
+			Point3D unclippedP1(0, 0, 0);
+			Point3D unclippedP2(0, 0, 0);
+			Point3D clippedPt(0, 0, 0);
+
+			if (isAbove(inPlane, triangle.p1()))
+			{
+				unclippedP1 = triangle.p1();
+
+				if (isAbove(inPlane, triangle.p2()))
+				{
+					unclippedP2 = triangle.p2();
+					clippedPt = triangle.p3();
+				}
+				else
+				{
+					unclippedP2 = triangle.p3();
+					clippedPt = triangle.p2();
+				}
+			}
+			else
+			{
+				unclippedP1 = triangle.p2();
+				unclippedP2 = triangle.p3();
+				clippedPt = triangle.p1();
+			}
+
+			Point3D boundaryP1 = linePlaneIntersection(unclippedP1, clippedPt, inPlane);
+			Point3D boundaryP2 = linePlaneIntersection(unclippedP2, clippedPt, inPlane);
+
+			boundary.addPointToBoundary(boundaryP1);
+			boundary.addPointToBoundary(boundaryP2);
+		}
+
+		else if (count == 1)
+		{
+			Point3D unclippedPt(0, 0, 0);
+			Point3D clippedP1(0, 0, 0);
+			Point3D clippedP2(0, 0, 0);
+
+			if (isAbove(inPlane, triangle.p1()))
+			{
+				unclippedPt = triangle.p1();
+				clippedP1 = triangle.p2();
+				clippedP2 = triangle.p3();
+			}
+			else if (isAbove(inPlane, triangle.p2()))
+			{
+				unclippedPt = triangle.p2();
+				clippedP1 = triangle.p1();
+				clippedP2 = triangle.p3();
+			}
+			else
+			{
+				unclippedPt = triangle.p3();
+				clippedP1 = triangle.p1();
+				clippedP2 = triangle.p2();
+			}
+
+			Point3D boundaryP1 = linePlaneIntersection(unclippedPt, clippedP1, inPlane);
+			Point3D boundaryP2 = linePlaneIntersection(unclippedPt, clippedP2, inPlane);
+
+			boundary.addPointToBoundary(boundaryP1);
+			boundary.addPointToBoundary(boundaryP2);
+		}
+	}
+
+	return boundary;
 }
 
 bool Clipper::isAbove(Plane inPlane, Point3D inPoint)
