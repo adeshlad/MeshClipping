@@ -40,18 +40,20 @@ Triangulation Clipper::clipWithPlane(Triangulation inTriangles, Plane inPlane)
 
 				if (isAbove(inPlane, triangle.p2()))
 				{
-					Point3D unclippedP2 = triangle.p2();
+					unclippedP2 = triangle.p2();
 				}
 				else
 				{
-					Point3D unclippedP2 = triangle.p3();
+					unclippedP2 = triangle.p3();
 				}
 			}
 			else
 			{
-				Point3D unclippedP1 = triangle.p2();
-				Point3D unclippedP2 = triangle.p3();
+				unclippedP1 = triangle.p2();
+				unclippedP2 = triangle.p3();
 			}
+
+
 		}
 
 		if (count == 1)
@@ -71,3 +73,24 @@ bool Clipper::isAbove(Plane inPlane, Point3D inPoint)
 	return value >= inPlane.constant();
 }
 
+Point3D Clipper::linePlaneIntersection(Point3D inP1, Point3D inP2, Plane inPlane)
+{
+	Point3D planeNormal = inPlane.normal();
+	double planeConstant = inPlane.constant();
+
+	Point3D lineVector(inP2.x() - inP1.x(), inP2.y() - inP1.y(), inP2.z() - inP1.z());
+	//Point3D diff = 
+
+	double t = (planeConstant - dot(planeNormal, inP1)) / dot(planeNormal, lineVector);
+
+	double x = inP1.x() + t * (inP2.x() - inP1.x());
+	double y = inP1.y() + t * (inP2.y() - inP1.y());
+	double z = inP1.z() + t * (inP2.z() - inP1.z());
+
+	return Point3D(x, y, z);
+}
+
+double Clipper::dot(const Point3D inP1, const Point3D inP2)
+{
+	return inP1.x() * inP2.x() + inP1.y() * inP2.y() + inP1.z() * inP2.z();
+}

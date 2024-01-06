@@ -10,23 +10,29 @@
 
 int main()
 {
-	std::vector<Triangle> triangles;
+	//std::vector<Triangle> triangles;
 
-	Reader reader;
+	//Reader reader;
 	//reader.readOBJ("F://adesh_workspace//MeshClipping//Reader//resources//bunny.obj", triangles);
-	reader.readSTL("F://adesh_workspace//MeshClipping//Reader//resources//flowerpot.stl", triangles);
+	//reader.readSTL("F://adesh_workspace//MeshClipping//Reader//resources//flowerpot.stl", triangles);
 
-	Triangulation triangulation(triangles);
+	//Triangulation triangulation(triangles);
+
 	Plane plane;
-	plane.setPointOnPlane(Point3D(80, 50, 1));
+	plane.setPointOnPlane(Point3D(1, 2, 1));
 	plane.setNormal(Point3D(2, 3, -1));
+	//plane.setConstant(7);
 
-	Clipper clipper;
-	Triangulation newTriangulation = clipper.clipWithPlane(triangulation, plane);
+	Point3D p1(1, 2, -1);
+	Point3D p2(3, 4, 5);
 
-	Writer writer;
-	writer.write("F://adesh_workspace//MeshClipping//Writer//resources//op1.txt", triangulation);
-	writer.write("F://adesh_workspace//MeshClipping//Writer//resources//op2.txt", newTriangulation);
+	Clipper clipper;	
+ 	Point3D	pt = clipper.linePlaneIntersection(p1, p2, plane);
+	//Triangulation newTriangulation = clipper.clipWithPlane(triangulation, plane);
+
+	//Writer writer;
+	//writer.write("F://adesh_workspace//MeshClipping//Writer//resources//op1.txt", triangulation);
+	//writer.write("F://adesh_workspace//MeshClipping//Writer//resources//op2.txt", newTriangulation);
 
 	std::cout << "done";
 }

@@ -12,11 +12,6 @@ Plane::~Plane()
 
 }
 
-Point3D Plane::pointOnPlane() const
-{
-	return mPointOnPlane;
-}
-
 Point3D Plane::normal() const
 {
 	return mNormal;
@@ -42,4 +37,9 @@ void Plane::setNormal(Point3D inNormal)
 void Plane::setConstant()
 {
 	mConstant = (mNormal.x() * mPointOnPlane.x()) + (mNormal.y() * mPointOnPlane.y()) + (mNormal.z() * mPointOnPlane.z());
+}
+
+void Plane::setConstant(double c)
+{
+	mConstant = c;
 }
