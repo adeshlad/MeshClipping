@@ -17,7 +17,7 @@ public:
 	void setPointOnPlane(Point3D inPoint);
 	void setNormal(Point3D inNormal);
 
-//private:
+private:
 	void setConstant();
 	void setConstant(double c);
 
