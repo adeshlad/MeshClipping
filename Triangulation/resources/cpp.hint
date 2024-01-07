@@ -1,2 +1,0 @@
-#define TRIANGULATION_API __declspec(dllexport)
-#define TRIANGULATION_API __declspec(dllimport)
