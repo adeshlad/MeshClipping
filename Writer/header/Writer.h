@@ -3,7 +3,7 @@
 #include "pch.h"
 
 #include "Point3D.h"
-#include "Triangulation.h"
+#include "Mesh.h"
 #include "Boundary.h"
 
 #include <string>
@@ -15,7 +15,7 @@ public:
 	Writer();
 	~Writer();
 
-	void write(std::string filePath, Triangulation& inTriangulation);
+	void write(std::string filePath, Mesh& inMesh);
 
 	void write(std::string filePath, Boundary& inBoundary);
 };

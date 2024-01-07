@@ -14,12 +14,12 @@ Writer::~Writer()
 
 }
 
-void Writer::write(std::string filePath, Triangulation& inTriangulation)
+void Writer::write(std::string filePath, Mesh& inMesh)
 {
     std::ofstream dataFile;
     dataFile.open(filePath);
 
-    for (Triangle triangle : inTriangulation.triangles())
+    for (Triangle triangle : inMesh.triangles())
     {
         dataFile << triangle.p1().x() << " " << triangle.p1().y() << " " << triangle.p1().z() << std::endl;
         dataFile << triangle.p2().x() << " " << triangle.p2().y() << " " << triangle.p2().z() << std::endl;

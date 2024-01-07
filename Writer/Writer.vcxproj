@@ -124,14 +124,14 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>F:\adesh_workspace\MeshClipping\Boundary\headers;F:\adesh_workspace\MeshClipping\Triangulation\headers;F:\adesh_workspace\MeshClipping\Geometry\headers;F:\adesh_workspace\MeshClipping\Writer\header;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>F:\adesh_workspace\MeshClipping\Boundary\headers;F:\adesh_workspace\MeshClipping\Mesh\headers;F:\adesh_workspace\MeshClipping\Geometry\headers;F:\adesh_workspace\MeshClipping\Writer\header;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <AdditionalLibraryDirectories>F:\adesh_workspace\MeshClipping\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Geometry.lib;Triangulation.lib;Boundary.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Geometry.lib;Mesh.lib;Boundary.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

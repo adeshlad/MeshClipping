@@ -16,7 +16,7 @@ Clipper::~Clipper()
 
 }
 
-Triangulation Clipper::clipWithPlane(Triangulation inTriangles, Plane inPlane)
+Mesh Clipper::clipWithPlane(Mesh inTriangles, Plane inPlane)
 {
 	std::vector<Triangle> clippedTriangulation;
 
@@ -100,10 +100,10 @@ Triangulation Clipper::clipWithPlane(Triangulation inTriangles, Plane inPlane)
 		}
 	}
 
-	return Triangulation(clippedTriangulation);
+	return Mesh(clippedTriangulation);
 }
 
-Boundary Clipper::triangulationPlaneIntersection(Triangulation inTriangles, Plane inPlane)
+Boundary Clipper::triangulationPlaneIntersection(Mesh inTriangles, Plane inPlane)
 {
 	Boundary boundary;
 

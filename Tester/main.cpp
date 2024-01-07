@@ -5,6 +5,8 @@
 #include "Plane.h"
 #include "Point3D.h"
 #include "Boundary.h"
+#include "Mesh.h"
+
 
 #include <iostream>
 #include <vector>
@@ -16,7 +18,7 @@ int main()
 	Reader reader;
 	reader.readSTL("F://adesh_workspace//MeshClipping//Reader//resources//flowerpot.stl", triangles);
 
-	Triangulation mesh(triangles);
+	Mesh mesh(triangles);
 
 	Plane plane;
 	plane.setPointOnPlane(Point3D(2, 2, 1));
@@ -24,7 +26,7 @@ int main()
 
 	Clipper clipper;
 
-	Triangulation clippedMesh = clipper.clipWithPlane(mesh, plane);
+	Mesh clippedMesh = clipper.clipWithPlane(mesh, plane);
 	Boundary boundary = clipper.triangulationPlaneIntersection(mesh, plane);
 
 	Writer writer;

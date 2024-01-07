@@ -4,7 +4,7 @@
 
 #include "Point3D.h"
 #include "Plane.h"
-#include "Triangulation.h"
+#include "Mesh.h"
 #include "Boundary.h"
 
 #include <vector>
@@ -15,9 +15,9 @@ public:
 	Clipper();
 	~Clipper();
 
-	Triangulation clipWithPlane(Triangulation inTriangles, Plane inPlane);
+	Mesh clipWithPlane(Mesh inTriangles, Plane inPlane);
 
-	Boundary triangulationPlaneIntersection(Triangulation inTriangles, Plane inPlane);
+	Boundary triangulationPlaneIntersection(Mesh inTriangles, Plane inPlane);
 
 private:
 	Point3D linePlaneIntersection(Point3D inP1, Point3D inP2, Plane inPlane);
