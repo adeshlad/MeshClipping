@@ -111,7 +111,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>F:\adesh_workspace\MeshClipping\Boundary\headers;F:\adesh_workspace\MeshClipping\Writer\header;F:\adesh_workspace\MeshClipping\Mesh\headers;F:\adesh_workspace\MeshClipping\Reader\headers;F:\adesh_workspace\MeshClipping\Path\headers;F:\adesh_workspace\MeshClipping\Geometry\headers;F:\adesh_workspace\MeshClipping\Clipper\header;F:\adesh_workspace\MeshClipping\Tester\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>F:\adesh_workspace\MeshClipping\Boundary\headers;F:\adesh_workspace\MeshClipping\Writer\header;F:\adesh_workspace\MeshClipping\Mesh\headers;F:\adesh_workspace\MeshClipping\Reader\headers;F:\adesh_workspace\MeshClipping\Path\headers;F:\adesh_workspace\MeshClipping\Geometry\headers;F:\adesh_workspace\MeshClipping\Clipper\header;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
