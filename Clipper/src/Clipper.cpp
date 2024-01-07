@@ -16,11 +16,11 @@ Clipper::~Clipper()
 
 }
 
-Mesh Clipper::clipWithPlane(Mesh inTriangles, Plane inPlane)
+Mesh Clipper::clipMeshWithPlane(Mesh inMesh, Plane inPlane)
 {
 	std::vector<Triangle> clippedTriangulation;
 
-	for (Triangle triangle : inTriangles.triangles())
+	for (Triangle triangle : inMesh.triangles())
 	{
 		int count = isAbove(inPlane, triangle.p1()) + isAbove(inPlane, triangle.p2()) + isAbove(inPlane, triangle.p3());
 
@@ -217,8 +217,9 @@ double Clipper::dot(const Point3D inP1, const Point3D inP2)
 }
 
 
-// Old code that might be needed later
 
+
+// Old code that might be needed later
 //Point3D normal = inPlane.normal();
 //double constant = inPlane.constant();
 //

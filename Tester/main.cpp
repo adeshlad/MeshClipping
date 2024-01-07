@@ -21,13 +21,13 @@ int main()
 	Mesh mesh(triangles);
 
 	Plane plane;
-	plane.setPointOnPlane(Point3D(2, 2, 1));
+	plane.moveToPoint(Point3D(2, 2, 1));
 	plane.setNormal(Point3D(2, 3, -1));
 
 	Clipper clipper;
 
-	Mesh clippedMesh = clipper.clipWithPlane(mesh, plane);
-	Boundary boundary = clipper.triangulationPlaneIntersection(mesh, plane);
+	Mesh clippedMesh = clipper.clipMeshWithPlane(mesh, plane);
+	Boundary boundary = clipper.meshPlaneIntersection(mesh, plane);
 
 	Writer writer;
 	writer.write("F://adesh_workspace//MeshClipping//Writer//resources//op1.txt", clippedMesh);

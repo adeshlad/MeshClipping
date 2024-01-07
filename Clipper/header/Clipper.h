@@ -15,7 +15,7 @@ public:
 	Clipper();
 	~Clipper();
 
-	Mesh clipWithPlane(Mesh inTriangles, Plane inPlane);
+	Mesh clipMeshWithPlane(Mesh inTriangles, Plane inPlane);
 
 	Boundary meshPlaneIntersection(Mesh inMesh, Plane inPlane);
 

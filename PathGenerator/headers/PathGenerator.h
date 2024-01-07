@@ -13,5 +13,6 @@ public:
 	PathGenerator();
 	~PathGenerator();
 
-	Boundary generatePath(Mesh inMesh, Plane inPlane, double inInterval);
+	//Boundary generatePath(Mesh inMesh, Plane inPlane, double inInterval);
+
 };
