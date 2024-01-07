@@ -2,7 +2,7 @@
 #include "framework.h"
 #include "Plane.h"
 
-Plane::Plane() : mPointOnPlane(Point3D(0, 0, 0)), mNormal(Point3D(0, 0, 0)), mConstant(0)
+Plane::Plane() : mPointOnPlane(0, 0, 0), mNormal(Point3D(0, 0, 0)), mConstant(0)
 {
 
 }
@@ -11,11 +11,6 @@ Plane::~Plane()
 {
 
 }
-
-//Point3D Plane::pointOnPlane() const
-//{
-//	return mPointOnPlane;
-//}
 
 Point3D Plane::normal() const
 {
@@ -27,7 +22,7 @@ double Plane::constant() const
 	return mConstant;
 }
 
-void Plane::setPointOnPlane(Point3D inPoint)
+void Plane::moveToPoint(Point3D inPoint)
 {
 	mPointOnPlane = inPoint;
 	setConstant();
@@ -39,12 +34,17 @@ void Plane::setNormal(Point3D inNormal)
 	setConstant();
 }
 
+void Plane::shiftPlane(double inBy)
+{
+	mConstant = mConstant + inBy;
+}
+
 void Plane::setConstant()
 {
 	mConstant = (mNormal.x() * mPointOnPlane.x()) + (mNormal.y() * mPointOnPlane.y()) + (mNormal.z() * mPointOnPlane.z());
 }
 
-void Plane::setConstant(double c)
+void Plane::setConstant(double inConstant)
 {
-	mConstant = c;
+	mConstant = inConstant;
 }

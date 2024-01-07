@@ -10,16 +10,16 @@ public:
 	Plane();
 	~Plane();
 
-	//Point3D pointOnPlane() const;
 	Point3D normal() const;
 	double constant() const;
 
-	void setPointOnPlane(Point3D inPoint);
+	void moveToPoint(Point3D inPoint);
 	void setNormal(Point3D inNormal);
+	void shiftPlane(double inBy);
 
 private:
 	void setConstant();
-	void setConstant(double c);
+	void setConstant(double inConstant);
 
 private:
 	Point3D mPointOnPlane;

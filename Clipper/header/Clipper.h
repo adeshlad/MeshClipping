@@ -17,7 +17,7 @@ public:
 
 	Mesh clipWithPlane(Mesh inTriangles, Plane inPlane);
 
-	Boundary triangulationPlaneIntersection(Mesh inTriangles, Plane inPlane);
+	Boundary meshPlaneIntersection(Mesh inMesh, Plane inPlane);
 
 private:
 	Point3D linePlaneIntersection(Point3D inP1, Point3D inP2, Plane inPlane);

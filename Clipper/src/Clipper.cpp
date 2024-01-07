@@ -103,11 +103,11 @@ Mesh Clipper::clipWithPlane(Mesh inTriangles, Plane inPlane)
 	return Mesh(clippedTriangulation);
 }
 
-Boundary Clipper::triangulationPlaneIntersection(Mesh inTriangles, Plane inPlane)
+Boundary Clipper::meshPlaneIntersection(Mesh inMesh, Plane inPlane)
 {
 	Boundary boundary;
 
-	for (Triangle triangle : inTriangles.triangles())
+	for (Triangle triangle : inMesh.triangles())
 	{
 		int count = isAbove(inPlane, triangle.p1()) + isAbove(inPlane, triangle.p2()) + isAbove(inPlane, triangle.p3());
 
