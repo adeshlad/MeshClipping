@@ -2,7 +2,7 @@
 #include "framework.h"
 #include "Mesh.h"
 
-Mesh::Mesh(std::vector<Triangle> inTriangles)
+Mesh::Mesh(const std::vector<Triangle>& inTriangles)
 {
     mTriangles = inTriangles;
 }

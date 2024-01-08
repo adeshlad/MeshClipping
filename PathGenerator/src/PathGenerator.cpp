@@ -13,7 +13,7 @@ PathGenerator::~PathGenerator()
 
 }
 
-Boundary PathGenerator::generatePath(Mesh inMesh, Plane inPlane, double inInterval)
+Boundary PathGenerator::generatePath(const Mesh& inMesh, const Plane& inPlane, const double inInterval)
 {
 	Boundary path;
 	Clipper clipper;
@@ -26,8 +26,11 @@ Boundary PathGenerator::generatePath(Mesh inMesh, Plane inPlane, double inInterv
 
 	while (forPositivePlane.boundary().size() == 0 && forNegativePlane.boundary().size() == 0)
 	{
-		positivePlane.shiftPlane(inInterval);
-		negativePlane.shiftPlane(-inInterval);
+		positivePlane.shiftPlaneBy(inInterval);
+		negativePlane.shiftPlaneBy(-inInterval);
+
+		forPositivePlane = clipper.meshPlaneIntersection(inMesh, positivePlane);
+		forNegativePlane = clipper.meshPlaneIntersection(inMesh, negativePlane);
 	}
 
 	while (forPositivePlane.boundary().size() > 0)
@@ -36,7 +39,7 @@ Boundary PathGenerator::generatePath(Mesh inMesh, Plane inPlane, double inInterv
 		{
 			path.addPointToBoundary(point);
 		}
-		positivePlane.shiftPlane(inInterval);
+		positivePlane.shiftPlaneBy(inInterval);
 		forPositivePlane = clipper.meshPlaneIntersection(inMesh, positivePlane);
 	}
 
@@ -46,7 +49,7 @@ Boundary PathGenerator::generatePath(Mesh inMesh, Plane inPlane, double inInterv
 		{
 			path.addPointToBoundary(point);
 		}
-		negativePlane.shiftPlane(-inInterval);
+		negativePlane.shiftPlaneBy(-inInterval);
 		forNegativePlane = clipper.meshPlaneIntersection(inMesh, negativePlane);
 	}
 

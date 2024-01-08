@@ -16,7 +16,7 @@ Clipper::~Clipper()
 
 }
 
-Mesh Clipper::clipMeshWithPlane(Mesh inMesh, Plane inPlane)
+Mesh Clipper::clipMeshWithPlane(const Mesh& inMesh, const Plane& inPlane)
 {
 	std::vector<Triangle> clippedTriangulation;
 
@@ -103,7 +103,7 @@ Mesh Clipper::clipMeshWithPlane(Mesh inMesh, Plane inPlane)
 	return Mesh(clippedTriangulation);
 }
 
-Boundary Clipper::meshPlaneIntersection(Mesh inMesh, Plane inPlane)
+Boundary Clipper::meshPlaneIntersection(const Mesh& inMesh, const Plane& inPlane)
 {
 	Boundary boundary;
 
@@ -187,7 +187,7 @@ Boundary Clipper::meshPlaneIntersection(Mesh inMesh, Plane inPlane)
 	return boundary;
 }
 
-bool Clipper::isAbove(Plane inPlane, Point3D inPoint)
+bool Clipper::isAbove(const Plane& inPlane, const Point3D& inPoint)
 {
 
 	double value = (inPlane.normal().x() * inPoint.x()) + (inPlane.normal().y() * inPoint.y()) + (inPlane.normal().z() * inPoint.z());
@@ -195,7 +195,7 @@ bool Clipper::isAbove(Plane inPlane, Point3D inPoint)
 	return value >= inPlane.constant();
 }
 
-Point3D Clipper::linePlaneIntersection(Point3D inP1, Point3D inP2, Plane inPlane)
+Point3D Clipper::linePlaneIntersection(const Point3D& inP1, const Point3D& inP2, const Plane& inPlane)
 {
 	Point3D planeNormal = inPlane.normal();
 	double planeConstant = inPlane.constant();
@@ -211,7 +211,7 @@ Point3D Clipper::linePlaneIntersection(Point3D inP1, Point3D inP2, Plane inPlane
 	return Point3D(x, y, z);
 }
 
-double Clipper::dot(const Point3D inP1, const Point3D inP2)
+double Clipper::dot(const Point3D& inP1, const Point3D& inP2)
 {
 	return inP1.x() * inP2.x() + inP1.y() * inP2.y() + inP1.z() * inP2.z();
 }

@@ -13,6 +13,6 @@ public:
 	PathGenerator();
 	~PathGenerator();
 
-	Boundary generatePath(Mesh inMesh, Plane inPlane, double inInterval);
+	Boundary generatePath(const Mesh& inMesh, const Plane& inPlane, const double inInterval);
 
 };

@@ -14,7 +14,7 @@ public:
 
 	std::vector<Point3D> boundary() const;
 
-	void addPointToBoundary(Point3D inNewPoint);
+	void addPointToBoundary(const Point3D inNewPoint);
 
 private:
 	std::vector<Point3D> mBoundary;

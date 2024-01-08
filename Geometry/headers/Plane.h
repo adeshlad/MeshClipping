@@ -13,13 +13,13 @@ public:
 	Point3D normal() const;
 	double constant() const;
 
-	void moveToPoint(Point3D inPoint);
-	void setNormal(Point3D inNormal);
-	void shiftPlane(double inBy);
+	void movePlaneToPoint(const Point3D inPoint);
+	void setPlaneNormal(const Point3D inNormal);
+	void shiftPlaneBy(const double inBy);
 
 private:
 	void setConstant();
-	void setConstant(double inConstant);
+	void setConstant(const double inConstant);
 
 private:
 	Point3D mPointOnPlane;

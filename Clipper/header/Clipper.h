@@ -15,15 +15,15 @@ public:
 	Clipper();
 	~Clipper();
 
-	Mesh clipMeshWithPlane(Mesh inTriangles, Plane inPlane);
+	Mesh clipMeshWithPlane(const Mesh& inTriangles, const Plane& inPlane);
 
-	Boundary meshPlaneIntersection(Mesh inMesh, Plane inPlane);
+	Boundary meshPlaneIntersection(const Mesh& inMesh, const Plane& inPlane);
 
 
 private:
-	Point3D linePlaneIntersection(Point3D inP1, Point3D inP2, Plane inPlane);
+	Point3D linePlaneIntersection(const Point3D& inP1, const Point3D& inP2, const Plane& inPlane);
 
-	bool isAbove(Plane inPlane, Point3D inPoint);
+	bool isAbove(const Plane& inPlane, const Point3D& inPoint);
 
-	double dot(const Point3D inP1, const Point3D inP2);
+	double dot(const Point3D& inP1, const Point3D& inP2);
 };

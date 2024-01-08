@@ -34,7 +34,7 @@ Point3D Triangle::normal() const
     return mNormal;
 }
 
-void Triangle::setNormal(Point3D inNormal)
+void Triangle::setNormal(const Point3D inNormal)
 {
     mNormal = inNormal;
 }

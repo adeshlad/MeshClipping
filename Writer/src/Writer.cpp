@@ -14,7 +14,7 @@ Writer::~Writer()
 
 }
 
-void Writer::write(std::string filePath, Mesh& inMesh)
+void Writer::write(const std::string filePath, const Mesh& inMesh)
 {
     std::ofstream dataFile;
     dataFile.open(filePath);
@@ -29,7 +29,7 @@ void Writer::write(std::string filePath, Mesh& inMesh)
     dataFile.close();
 };
 
-void Writer::write(std::string filePath, Boundary& inBoundary)
+void Writer::write(const std::string filePath, const Boundary& inBoundary)
 {
     std::ofstream dataFile;
     dataFile.open(filePath);

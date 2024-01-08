@@ -22,20 +22,20 @@ int main()
 	Mesh mesh(triangles);
 
 	Plane plane;
-	plane.moveToPoint(Point3D(2, 2, 1));
-	plane.setNormal(Point3D(2, 3, -1));
+	plane.movePlaneToPoint(Point3D(0, 0, 0));
+	plane.setPlaneNormal(Point3D(0, 0, -1));
 
 	Clipper clipper;
 
 	Mesh clippedMesh = clipper.clipMeshWithPlane(mesh, plane);
 
 	PathGenerator pathGenerator;
-	Boundary path = pathGenerator.generatePath(mesh, plane, 50);
+	Boundary path = pathGenerator.generatePath(mesh, plane, 10);
 
 	Writer writer;
-	writer.write("F://adesh_workspace//MeshClipping//Writer//resources//op1.txt", mesh);
-	writer.write("F://adesh_workspace//MeshClipping//Writer//resources//op2.txt", clippedMesh);
-	writer.write("F://adesh_workspace//MeshClipping//Writer//resources//op3.txt", path);
+	writer.write("F://adesh_workspace//MeshClipping//Writer//resources//mesh.txt", mesh);
+	writer.write("F://adesh_workspace//MeshClipping//Writer//resources//clippedMesh.txt", clippedMesh);
+	writer.write("F://adesh_workspace//MeshClipping//Writer//resources//path.txt", path);
 
 	std::cout << "done";
 }

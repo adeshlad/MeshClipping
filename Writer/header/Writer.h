@@ -15,7 +15,7 @@ public:
 	Writer();
 	~Writer();
 
-	void write(std::string filePath, Mesh& inMesh);
+	void write(const std::string filePath, const Mesh& inMesh);
 
-	void write(std::string filePath, Boundary& inBoundary);
+	void write(const std::string filePath, const Boundary& inBoundary);
 };
