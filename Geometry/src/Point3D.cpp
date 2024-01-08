@@ -2,6 +2,11 @@
 #include "framework.h"
 #include "Point3D.h"
 
+Point3D::Point3D()
+{
+
+}
+
 Point3D::Point3D(double inX, double inY, double inZ) : mX(0.0), mY(0.0), mZ(0.0)
 {
     mX = inX;
