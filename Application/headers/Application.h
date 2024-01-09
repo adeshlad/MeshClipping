@@ -16,9 +16,10 @@ public:
 
 
 public slots:
+    void openFileDialogBox();
+    void clearData();
     void clipMesh();
     void generatePath();
-    void openFileDialogBox();
 
 
 private:
@@ -31,6 +32,7 @@ private:
     OpenGLWindow* mRenderer;
 
     QPushButton* mSelectFileButton;
+    QPushButton* mClearDataButton;
 
     QLabel* mLabelMovePlaneToPoint;
 
