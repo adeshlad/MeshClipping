@@ -1,4 +1,5 @@
 #pragma once
+
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
 #include <QOpenGLBuffer>
@@ -17,8 +18,8 @@ public:
     OpenGLWindow(const QColor& background, QMainWindow* parent);
     ~OpenGLWindow();
 
-    void setVectorOfLines(QVector<GLfloat>& vertices);
-    void setColorOfLines(QVector<GLfloat>& colors);
+    void setVertices(QVector<GLfloat>& vertices);
+    void setColors(QVector<GLfloat>& colors);
     void updateData(const QVector<GLfloat>& vertices, const QVector<GLfloat>& colors);
 
 

@@ -4,8 +4,8 @@
 
 #include "Triangle.h"
 
-#include <string>
 #include <vector>
+#include <string>
 
 class READER_API Reader 
 {

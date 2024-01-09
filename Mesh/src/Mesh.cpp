@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "framework.h"
+
 #include "Mesh.h"
 
 Mesh::Mesh(const std::vector<Triangle>& inTriangles)

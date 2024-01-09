@@ -38,13 +38,13 @@ void OpenGLWindow::reset()
 }
 
 
-void OpenGLWindow::setVectorOfLines(QVector<GLfloat>& vertices)
+void OpenGLWindow::setVertices(QVector<GLfloat>& vertices)
 {
     mVertice = vertices;
     update();
 }
 
-void OpenGLWindow::setColorOfLines(QVector<GLfloat>& colors)
+void OpenGLWindow::setColors(QVector<GLfloat>& colors)
 {
     mColor = colors;
     update();
@@ -75,9 +75,10 @@ void OpenGLWindow::paintGL()
 
     glEnableVertexAttribArray(m_colAttr);
 
-    glDrawArrays(GL_LINES, 0, mVertice.size() / 3);
+    //glDrawArrays(GL_LINE_LOOP, 0, mVertice.size() / 3);
+    glDrawArrays(GL_TRIANGLES, 0, mVertice.size() / 3);
 
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
 void OpenGLWindow::updateData(const QVector<GLfloat>& vertices, const QVector<GLfloat>& colors)
@@ -87,10 +88,12 @@ void OpenGLWindow::updateData(const QVector<GLfloat>& vertices, const QVector<GL
     update();
 }
 
-void OpenGLWindow::mouseMoveEvent(QMouseEvent* event) {
+void OpenGLWindow::mouseMoveEvent(QMouseEvent* event)
+{
     int dx = event->x() - lastPos.x();
     int dy = event->y() - lastPos.y();
-    if (event->buttons() & Qt::LeftButton) {
+    if (event->buttons() & Qt::LeftButton)
+    {
         QQuaternion rotX = QQuaternion::fromAxisAndAngle(0.0f, 1.0f, 0.0f, 0.5f * dx);
         QQuaternion rotY = QQuaternion::fromAxisAndAngle(1.0f, 0.0f, 0.0f, 0.5f * dy);
 
@@ -102,10 +105,12 @@ void OpenGLWindow::mouseMoveEvent(QMouseEvent* event) {
 
 void OpenGLWindow::wheelEvent(QWheelEvent* event)
 {
-    if (event->angleDelta().y() > 0) {
+    if (event->angleDelta().y() > 0)
+    {
         zoomOut();
     }
-    else {
+    else
+    {
         zoomIn();
     }
 }
@@ -138,10 +143,8 @@ void OpenGLWindow::initializeGL()
         "void main() {\n"
         "   gl_FragColor = col;\n"
         "}\n";
-    
 
     rotationAngle = QQuaternion::fromAxisAndAngle(0.0f, 0.0f, 1.0f, 0.0f);
-
 
     initializeOpenGLFunctions();
 

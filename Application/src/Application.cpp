@@ -188,8 +188,8 @@ void Application::clipMesh()
         colors.push_back(1.0);
     }
 
-    mRenderer->setVectorOfLines(points);
-    mRenderer->setColorOfLines(colors);
+    mRenderer->setVertices(points);
+    mRenderer->setColors(colors);
     mRenderer->updateData(points, colors);
 }
 
@@ -216,7 +216,7 @@ void Application::generatePath()
     QVector<GLfloat> points;
     QVector<GLfloat> colors;
 
-    for (Point3D point : path.boundary())
+    for (Point3D point : path.points())
     {
         points.push_back(point.x());
         points.push_back(point.y());
@@ -227,8 +227,8 @@ void Application::generatePath()
         colors.push_back(1.0);
     }
 
-    mRenderer->setVectorOfLines(points);
-    mRenderer->setColorOfLines(colors);
+    mRenderer->setVertices(points);
+    mRenderer->setColors(colors);
     mRenderer->updateData(points, colors);
 }
 
@@ -260,8 +260,8 @@ void Application::openFileDialogBox()
             colors.push_back(1.0);
         }
         
-        mRenderer->setVectorOfLines(points);
-        mRenderer->setColorOfLines(colors);
+        mRenderer->setVertices(points);
+        mRenderer->setColors(colors);
         mRenderer->updateData(points, colors);
     }
 }

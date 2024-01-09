@@ -12,8 +12,10 @@ public:
 	Boundary();
 	~Boundary();
 
-	std::vector<Point3D> boundary() const;
+	// return Boundary points.
+	std::vector<Point3D> points() const;
 
+	// add Point to Boundary vector.
 	void addPointToBoundary(const Point3D inNewPoint);
 
 private:

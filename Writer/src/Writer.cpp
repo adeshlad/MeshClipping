@@ -1,6 +1,9 @@
 #include "pch.h"
 #include "framework.h"
+
 #include "Writer.h"
+
+#include "Point3D.h"
 
 #include <fstream>
 
@@ -34,9 +37,12 @@ void Writer::write(const std::string filePath, const Boundary& inBoundary)
     std::ofstream dataFile;
     dataFile.open(filePath);
 
-    for (Point3D point : inBoundary.boundary())
+    for (Point3D point : inBoundary.points())
     {
         dataFile << point.x() << " " << point.y() << " " << point.z() << std::endl;
     }
+
+    Point3D firstPoint = inBoundary.points()[0];
+    dataFile << firstPoint.x() << " " << firstPoint.y() << " " << firstPoint.z() << std::endl;
     dataFile.close();
 }

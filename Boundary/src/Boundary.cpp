@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "framework.h"
+
 #include "Boundary.h"
 
 Boundary::Boundary()
@@ -12,7 +13,7 @@ Boundary::~Boundary()
 
 }
 
-std::vector<Point3D> Boundary::boundary() const
+std::vector<Point3D> Boundary::points() const
 {
 	return mBoundary;
 }

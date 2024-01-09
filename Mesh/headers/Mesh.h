@@ -13,7 +13,10 @@ public:
 	Mesh(const std::vector<Triangle>& inTriangles);
 	~Mesh();
 
+	// return Mesh points.
 	std::vector<Point3D> points() const;
+
+	// return Mesh triangles.
 	std::vector<Triangle> triangles() const;
 
 private:
