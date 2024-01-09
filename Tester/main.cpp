@@ -30,7 +30,7 @@ int main()
 	Mesh clippedMesh = clipper.clipMeshWithPlane(mesh, plane);
 
 	PathGenerator pathGenerator;
-	Boundary path = pathGenerator.generatePath(mesh, plane, 10);
+	Boundary path = pathGenerator.generatePath(mesh, plane, 20);
 
 	Writer writer;
 	writer.write("F://adesh_workspace//MeshClipping//Writer//resources//mesh.txt", mesh);

@@ -23,35 +23,35 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <QtRcc Include="Application.qrc">
+    <QtRcc Include="resources\Application.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
-    <QtUic Include="Application.ui">
+    <QtUic Include="resources\Application.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtMoc Include="Application.h">
+    <QtMoc Include="headers\Application.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <ClCompile Include="Application.cpp">
+    <ClCompile Include="src\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClInclude Include="stdafx.h">
+    <ClInclude Include="headers\stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClCompile Include="stdafx.cpp">
+    <ClCompile Include="src\stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OpenGLWindow.cpp">
+    <ClCompile Include="src\OpenGLWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="OpenGLWindow.h">
+    <QtMoc Include="headers\OpenGLWindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

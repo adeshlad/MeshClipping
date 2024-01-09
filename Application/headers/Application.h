@@ -3,6 +3,9 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_Application.h"
 
+#include "Mesh.h"
+#include "OpenGLWindow.h"
+
 class Application : public QMainWindow
 {
     Q_OBJECT
@@ -25,7 +28,7 @@ private:
 private:
     QWidget* mCentralWidget;
 
-    QOpenGLWidget* mOpenGLWidget;
+    OpenGLWindow* mRenderer;
 
     QPushButton* mSelectFileButton;
 
@@ -58,4 +61,6 @@ private:
     QPushButton* mPushButtonGeneratePath;
 
     QStatusBar* mStatusBar;
+
+    Mesh mMesh;
 };

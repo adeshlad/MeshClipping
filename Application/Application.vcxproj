@@ -66,11 +66,11 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>F:\adesh_workspace\MeshClipping\Reader\headers;F:\adesh_workspace\MeshClipping\Geometry\headers;F:\adesh_workspace\MeshClipping\Clipper\header;F:\adesh_workspace\MeshClipping\Mesh\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>F:\adesh_workspace\MeshClipping\PathGenerator\headers;F:\adesh_workspace\MeshClipping\Application\src;F:\adesh_workspace\MeshClipping\Application\headers;F:\adesh_workspace\MeshClipping\Boundary\headers;F:\adesh_workspace\MeshClipping\Reader\headers;F:\adesh_workspace\MeshClipping\Geometry\headers;F:\adesh_workspace\MeshClipping\Clipper\header;F:\adesh_workspace\MeshClipping\Mesh\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>F:\adesh_workspace\MeshClipping\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Geometry.lib;Reader.lib;Clipper.lib;Mesh.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Geometry.lib;Reader.lib;Clipper.lib;Mesh.lib;PathGenerator.lib;Boundary.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
@@ -108,15 +108,15 @@
     </QtMoc>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <QtRcc Include="Application.qrc" />
-    <QtUic Include="Application.ui" />
-    <QtMoc Include="Application.h" />
-    <ClCompile Include="Application.cpp" />
-    <ClCompile Include="main.cpp" />
-    <QtMoc Include="OpenGLWindow.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClCompile Include="OpenGLWindow.cpp" />
-    <ClCompile Include="stdafx.cpp">
+    <QtRcc Include="resources\Application.qrc" />
+    <QtUic Include="resources\Application.ui" />
+    <QtMoc Include="headers\Application.h" />
+    <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <QtMoc Include="headers\OpenGLWindow.h" />
+    <ClInclude Include="headers\stdafx.h" />
+    <ClCompile Include="src\OpenGLWindow.cpp" />
+    <ClCompile Include="src\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
