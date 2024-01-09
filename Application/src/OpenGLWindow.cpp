@@ -12,8 +12,8 @@ OpenGLWindow::OpenGLWindow(const QColor& background, QMainWindow* parent) : mBac
     setParent(parent);
     setMinimumSize(550, 450);
 
-    mVertice = QVector<GLfloat>{0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1};
-    mColor = QVector<GLfloat>{ 1, 1 ,1, 1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ,1, 1, 1, 1, 1, 1 };
+    //mVertice = QVector<GLfloat>{0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1};
+    //mColor = QVector<GLfloat>{ 1, 1 ,1, 1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ,1, 1, 1, 1, 1, 1 };
 }
 
 
@@ -75,8 +75,8 @@ void OpenGLWindow::paintGL()
 
     glEnableVertexAttribArray(m_colAttr);
 
-    //glDrawArrays(GL_LINE_LOOP, 0, mVertice.size() / 3);
-    glDrawArrays(GL_TRIANGLES, 0, mVertice.size() / 3);
+    glDrawArrays(GL_LINE_LOOP, 0, mVertice.size() / 3);
+    //glDrawArrays(GL_TRIANGLES, 0, mVertice.size() / 3);
 
     //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }

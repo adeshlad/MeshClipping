@@ -11,6 +11,8 @@ Application::Application(QWidget *parent) : QMainWindow(parent), mMesh(std::vect
     setupUi();
 
     connect(mSelectFileButton, &QPushButton::clicked, this, &Application::openFileDialogBox);
+    connect(mClearDataButton, &QPushButton::clicked, this, &Application::clearData);
+
     connect(mPushButtonClipMesh, &QPushButton::clicked, this, &Application::clipMesh);
     connect(mPushButtonGeneratePath, &QPushButton::clicked, this, &Application::generatePath);
     
@@ -53,8 +55,14 @@ void Application :: setupUi()
     mSelectFileButton->setLayoutDirection(Qt::LeftToRight);
 
 
+    mClearDataButton = new QPushButton("Clear Data", this);
+    mClearDataButton->setGeometry(QRect(1110, 10, 151, 31));
+    mClearDataButton->setFont(fontSmall);
+    mClearDataButton->setLayoutDirection(Qt::LeftToRight);
+
+
     mLabelMovePlaneToPoint = new QLabel("Move Plane to Point", this);
-    mLabelMovePlaneToPoint->setGeometry(QRect(1020, 81, 171, 41));
+    mLabelMovePlaneToPoint->setGeometry(QRect(1010, 81, 187, 41));
     mLabelMovePlaneToPoint->setFont(fontBig);
     mLabelMovePlaneToPoint->setLayoutDirection(Qt::LeftToRight);
 
@@ -156,6 +164,50 @@ void Application :: setupUi()
     //this->setCentralWidget(this);
 }
 
+void Application::openFileDialogBox()
+{
+    QString QfilePath = QFileDialog::getOpenFileName(this, tr("Open STL File"), "", tr("STL Files (*.stl); ; All Files (*)"));
+
+    if (!QfilePath.isEmpty()) {
+        std::string filePath = QfilePath.toStdString();
+
+        std::vector<Triangle> triangles;
+
+        Reader reader;
+        reader.readSTL(filePath, triangles);
+
+        mMesh = Mesh(triangles);
+
+        QVector<GLfloat> points;
+        QVector<GLfloat> colors;
+
+        for (Point3D point : mMesh.points())
+        {
+            points.push_back(point.x());
+            points.push_back(point.y());
+            points.push_back(point.z());
+
+            colors.push_back(1.0);
+            colors.push_back(1.0);
+            colors.push_back(1.0);
+        }
+        
+        mRenderer->setVertices(points);
+        mRenderer->setColors(colors);
+        mRenderer->updateData(points, colors);
+    }
+}
+
+void Application::clearData()
+{
+    QVector<GLfloat> points;
+    QVector<GLfloat> colors;
+
+    mRenderer->setVertices(points);
+    mRenderer->setColors(colors);
+    mRenderer->updateData(points, colors);
+}
+
 void Application::clipMesh()
 {
     double planePointX = mDoubleSpinBoxPointX->value();
@@ -232,36 +284,3 @@ void Application::generatePath()
     mRenderer->updateData(points, colors);
 }
 
-void Application::openFileDialogBox()
-{
-    QString QfilePath = QFileDialog::getOpenFileName(this, tr("Open STL File"), "", tr("STL Files (*.stl); ; All Files (*)"));
-
-    if (!QfilePath.isEmpty()) {
-        std::string filePath = QfilePath.toStdString();
-
-        std::vector<Triangle> triangles;
-
-        Reader reader;
-        reader.readSTL(filePath, triangles);
-
-        mMesh = Mesh(triangles);
-
-        QVector<GLfloat> points;
-        QVector<GLfloat> colors;
-
-        for (Point3D point : mMesh.points())
-        {
-            points.push_back(point.x());
-            points.push_back(point.y());
-            points.push_back(point.z());
-
-            colors.push_back(1.0);
-            colors.push_back(1.0);
-            colors.push_back(1.0);
-        }
-        
-        mRenderer->setVertices(points);
-        mRenderer->setColors(colors);
-        mRenderer->updateData(points, colors);
-    }
-}
