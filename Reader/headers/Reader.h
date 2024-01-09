@@ -14,5 +14,4 @@ public:
 	~Reader();
 
 	void readSTL(const std::string inFilePath, std::vector<Triangle>& inTriangles);
-	void readOBJ(const std::string inFilePath, std::vector<Triangle>& inTriangles);
 };
