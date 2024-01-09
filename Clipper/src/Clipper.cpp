@@ -60,7 +60,7 @@ Mesh Clipper::clipMeshWithPlane(const Mesh& inMesh, const Plane& inPlane)
 			Point3D newP3 = linePlaneIntersection(unclippedP1, clippedPt, inPlane);
 			Point3D newP4 = linePlaneIntersection(unclippedP2, clippedPt, inPlane);
 
-			Triangle newTriangle1(unclippedP1, unclippedP1, newP3);
+			Triangle newTriangle1(unclippedP1, unclippedP2, newP3);
 			Triangle newTriangle2(unclippedP1, newP3, newP4);
 
 			clippedTriangulation.push_back(newTriangle1);
