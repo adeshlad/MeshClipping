@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "framework.h"
+
 #include "Reader.h"
+
 #include "Point3D.h"
 
 #include <fstream>
@@ -16,7 +18,7 @@ Reader::~Reader()
 
 }
 
-void Reader::readSTL(std::string inFilePath, std::vector<Triangle>& inTriangles)
+void Reader::readSTL(const std::string inFilePath, std::vector<Triangle>& inTriangles)
 {
 	std::ifstream dataFile;
 	dataFile.open(inFilePath);
@@ -67,7 +69,7 @@ void Reader::readSTL(std::string inFilePath, std::vector<Triangle>& inTriangles)
 	}
 }
 
-void Reader::readOBJ(std::string inFilePath, std::vector<Triangle>& inTriangles)
+void Reader::readOBJ(const std::string inFilePath, std::vector<Triangle>& inTriangles)
 {
 	std::vector<Point3D> vertices{ Point3D(0, 0, 0) };
 

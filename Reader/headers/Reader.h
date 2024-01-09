@@ -4,8 +4,8 @@
 
 #include "Triangle.h"
 
-#include <string>
 #include <vector>
+#include <string>
 
 class READER_API Reader 
 {
@@ -13,6 +13,6 @@ public:
 	Reader();
 	~Reader();
 
-	void readSTL(std::string inFilePath, std::vector<Triangle>& inTriangles);
-	void readOBJ(std::string inFilePath, std::vector<Triangle>& inTriangles);
+	void readSTL(const std::string inFilePath, std::vector<Triangle>& inTriangles);
+	void readOBJ(const std::string inFilePath, std::vector<Triangle>& inTriangles);
 };

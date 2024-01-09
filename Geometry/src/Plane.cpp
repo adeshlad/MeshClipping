@@ -1,8 +1,9 @@
 #include "pch.h"
 #include "framework.h"
+
 #include "Plane.h"
 
-Plane::Plane() : mPointOnPlane(Point3D(0, 0, 0)), mNormal(Point3D(0, 0, 0)), mConstant(0)
+Plane::Plane() : mPointOnPlane(0, 0, 0), mNormal(Point3D(0, 0, 0)), mConstant(0)
 {
 
 }
@@ -10,11 +11,6 @@ Plane::Plane() : mPointOnPlane(Point3D(0, 0, 0)), mNormal(Point3D(0, 0, 0)), mCo
 Plane::~Plane()
 {
 
-}
-
-Point3D Plane::pointOnPlane() const
-{
-	return mPointOnPlane;
 }
 
 Point3D Plane::normal() const
@@ -27,19 +23,29 @@ double Plane::constant() const
 	return mConstant;
 }
 
-void Plane::setPointOnPlane(Point3D inPoint)
+void Plane::movePlaneToPoint(const Point3D inPoint)
 {
 	mPointOnPlane = inPoint;
-	setConstant();
+	updateConstant();
 }
 
-void Plane::setNormal(Point3D inNormal)
+void Plane::setPlaneNormal(const Point3D inNormal)
 {
 	mNormal = inNormal;
-	setConstant();
+	updateConstant();
 }
 
-void Plane::setConstant()
+void Plane::shiftPlaneBy(const double inBy)
+{
+	mConstant = mConstant + inBy;
+}
+
+void Plane::updateConstant()
 {
 	mConstant = (mNormal.x() * mPointOnPlane.x()) + (mNormal.y() * mPointOnPlane.y()) + (mNormal.z() * mPointOnPlane.z());
+}
+
+void Plane::updateConstant(const double inConstant)
+{
+	mConstant = inConstant;
 }

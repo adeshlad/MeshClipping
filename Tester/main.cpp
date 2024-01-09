@@ -4,6 +4,10 @@
 #include "Triangle.h"
 #include "Plane.h"
 #include "Point3D.h"
+#include "Boundary.h"
+#include "Mesh.h"
+#include "PathGenerator.h"
+
 
 #include <iostream>
 #include <vector>
@@ -13,20 +17,25 @@ int main()
 	std::vector<Triangle> triangles;
 
 	Reader reader;
-	//reader.readOBJ("F://adesh_workspace//MeshClipping//Reader//resources//bunny.obj", triangles);
 	reader.readSTL("F://adesh_workspace//MeshClipping//Reader//resources//flowerpot.stl", triangles);
 
-	Triangulation triangulation(triangles);
+	Mesh mesh(triangles);
+
 	Plane plane;
-	plane.setPointOnPlane(Point3D(80, 50, 1));
-	plane.setNormal(Point3D(2, 3, -1));
+	plane.movePlaneToPoint(Point3D(0, 0, 0));
+	plane.setPlaneNormal(Point3D(0, 0, -1));
 
 	Clipper clipper;
-	Triangulation newTriangulation = clipper.clipWithPlane(triangulation, plane);
+
+	Mesh clippedMesh = clipper.clipMeshWithPlane(mesh, plane);
+
+	PathGenerator pathGenerator;
+	Boundary path = pathGenerator.generatePath(mesh, plane, 20);
 
 	Writer writer;
-	writer.write("F://adesh_workspace//MeshClipping//Writer//resources//op1.txt", triangulation);
-	writer.write("F://adesh_workspace//MeshClipping//Writer//resources//op2.txt", newTriangulation);
+	writer.write("F://adesh_workspace//MeshClipping//Writer//resources//mesh.txt", mesh);
+	writer.write("F://adesh_workspace//MeshClipping//Writer//resources//clippedMesh.txt", clippedMesh);
+	writer.write("F://adesh_workspace//MeshClipping//Writer//resources//path.txt", path);
 
 	std::cout << "done";
 }

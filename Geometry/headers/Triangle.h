@@ -15,7 +15,7 @@ public:
 	Point3D p3() const;
 	Point3D normal() const;
 
-	void setNormal(Point3D inNormal);
+	void setNormal(const Point3D inNormal);
 
 private:
 	Point3D mP1;

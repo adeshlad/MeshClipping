@@ -2,9 +2,11 @@
 
 #include "pch.h"
 
-#include "Triangulation.h"
+#include "Boundary.h"
+#include "Mesh.h"
 
 #include <string>
+#include <vector>
 
 class WRITER_API Writer
 {
@@ -12,5 +14,6 @@ public:
 	Writer();
 	~Writer();
 
-	void write(std::string filePath, Triangulation& inTriangulation);
+	void write(const std::string filePath, const Mesh& inMesh);
+	void write(const std::string filePath, const Boundary& inBoundary);
 };
