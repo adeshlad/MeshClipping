@@ -1,5 +1,7 @@
 #include "stdafx.h"
+
 #include "OpenGLWindow.h"
+
 #include <QOpenGLContext>
 #include <QOpenGLPaintDevice>
 #include <QOpenGLShaderProgram>
@@ -12,8 +14,8 @@ OpenGLWindow::OpenGLWindow(const QColor& background, QMainWindow* parent) : mBac
     setParent(parent);
     setMinimumSize(550, 450);
 
-    //mVertice = QVector<GLfloat>{0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1};
-    //mColor = QVector<GLfloat>{ 1, 1 ,1, 1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ,1, 1, 1, 1, 1, 1 };
+    mVertice = QVector<GLfloat>{0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1};
+    mColor = QVector<GLfloat>{ 1, 1 ,1, 1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ,1, 1, 1, 1, 1, 1 };
 }
 
 
@@ -77,8 +79,7 @@ void OpenGLWindow::paintGL()
 
     glDrawArrays(GL_LINE_LOOP, 0, mVertice.size() / 3);
     //glDrawArrays(GL_TRIANGLES, 0, mVertice.size() / 3);
-
-    //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    //glDrawArrays(GL_QUADS, 0, mVertice.size() / 3);
 }
 
 void OpenGLWindow::updateData(const QVector<GLfloat>& vertices, const QVector<GLfloat>& colors)
@@ -126,6 +127,7 @@ void OpenGLWindow::zoomOut()
     scaleFactor /= 1.1f;
     update();
 }
+
 void OpenGLWindow::initializeGL()
 {
     static const char* vertexShaderSource =
@@ -162,48 +164,3 @@ void OpenGLWindow::initializeGL()
         qDebug() << "Shader attribute or uniform location error.";
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//void OpenGLWindow::initializeGL() {
-//    static const char* vertexShaderSource =
-//        "attribute highp vec4 posAttr;\n"
-//        "attribute lowp vec4 colAttr;\n"
-//        "varying lowp vec4 col;\n"
-//        "uniform highp mat4 matrix;\n"
-//        "void main() {\n"
-//        "   col = colAttr;\n"
-//        "   gl_Position = matrix * posAttr;\n"
-//        "}\n";
-//
-//    static const char* fragmentShaderSource =
-//        "varying lowp vec4 col;\n"
-//        "void main() {\n"
-//        "   gl_FragColor = col;\n"
-//        "}\n";
-//
-//    initializeOpenGLFunctions();
-//    setMouseTracking(true);
-//
-//    mProgram = new QOpenGLShaderProgram(this);
-//    mProgram->addShaderFromSourceCode(QOpenGLShader::Vertex, vertexShaderSource);
-//    mProgram->addShaderFromSourceCode(QOpenGLShader::Fragment, fragmentShaderSource);
-//    mProgram->link();
-//    m_posAttr = mProgram->attributeLocation("posAttr");
-//    Q_ASSERT(m_posAttr != -1);
-//    m_colAttr = mProgram->attributeLocation("colAttr");
-//    Q_ASSERT(m_colAttr != -1);
-//    m_matrixUniform = mProgram->uniformLocation("matrix");
-//    Q_ASSERT(m_matrixUniform != -1);
-//}

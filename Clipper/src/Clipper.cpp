@@ -224,22 +224,3 @@ double Clipper::dot(const Point3D& inP1, const Point3D& inP2)
 {
 	return inP1.x() * inP2.x() + inP1.y() * inP2.y() + inP1.z() * inP2.z();
 }
-
-
-// Old code that might be needed later
-//Point3D normal = inPlane.normal();
-//double constant = inPlane.constant();
-//
-//double d = dot(normal, inPlane.pointOnPlane());
-//Point3D diff(inP2.x() - inP1.x(), inP2.y() - inP1.y(), inP2.z() - inP1.z());
-//
-//double t1 = planeConstant - (planeNormal.x() * inP1.x()) - (planeNormal.y() * inP1.y()) - (planeNormal.z() * inP1.z());
-//double t2 = (planeNormal.x() * (inP2.x() - inP1.x())) + (planeNormal.y() * (inP2.y() - inP1.y())) + (planeNormal.z() * (inP2.z() - inP1.z()));
-//
-//double t = (d - dot(normal, inP1)) / dot(normal, diff);
-//
-//double x = inP1.x() + t * (inP2.x() - inP1.x());
-//double y = inP1.y() + t * (inP2.y() - inP1.y());
-//double z = inP1.z() + t * (inP2.z() - inP1.z());
-//
-//return Point3D(x, y, z);

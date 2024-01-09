@@ -1,9 +1,11 @@
 #include "stdafx.h"
+
 #include "Application.h"
-#include "Triangle.h"
-#include "Reader.h"
+
 #include "Clipper.h"
 #include "PathGenerator.h"
+#include "Reader.h"
+#include "Triangle.h"
 
 
 Application::Application(QWidget *parent) : QMainWindow(parent), mMesh(std::vector<Triangle>{})
@@ -28,14 +30,6 @@ Application::~Application()
 void Application :: setupUi()
 {
     resize(1280, 720);
-
-    //mRenderer = new OpenGLWindow(this);
-
-    //mOpenGLWidget = new QOpenGLWidget(mCentralWidget);
-    //mOpenGLWidget->setGeometry(QRect(10, 10, 911, 681));
-
-    //mCentralWidget = new QWidget(ApplicationClass);
-    //mCentralWidget->setObjectName("CentralWidget");
 
     mRenderer = new OpenGLWindow(QColor(0, 0, 0), this);
     mRenderer->setGeometry(QRect(10, 10, 911, 681));
@@ -160,8 +154,6 @@ void Application :: setupUi()
     mPushButtonGeneratePath->setGeometry(QRect(1110, 431, 151, 31));
     mPushButtonGeneratePath->setFont(fontSmall);
     mPushButtonGeneratePath->setLayoutDirection(Qt::LeftToRight);
-
-    //this->setCentralWidget(this);
 }
 
 void Application::openFileDialogBox()
@@ -283,4 +275,3 @@ void Application::generatePath()
     mRenderer->setColors(colors);
     mRenderer->updateData(points, colors);
 }
-
