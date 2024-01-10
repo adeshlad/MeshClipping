@@ -77,7 +77,7 @@ void OpenGLWindow::paintGL()
 
     glEnableVertexAttribArray(m_colAttr);
 
-    glDrawArrays(GL_LINE_LOOP, 0, mVertice.size() / 3);
+    glDrawArrays(GL_LINES, 0, mVertice.size() / 3);
     //glDrawArrays(GL_TRIANGLES, 0, mVertice.size() / 3);
     //glDrawArrays(GL_QUADS, 0, mVertice.size() / 3);
 }
