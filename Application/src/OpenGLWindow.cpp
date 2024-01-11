@@ -14,8 +14,8 @@ OpenGLWindow::OpenGLWindow(const QColor& background, QMainWindow* parent) : mBac
     setParent(parent);
     setMinimumSize(550, 450);
 
-    mVertice = QVector<GLfloat>{0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1};
-    mColor = QVector<GLfloat>{ 1, 1 ,1, 1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ,1, 1, 1, 1, 1, 1 };
+    //mVertice = QVector<GLfloat>{0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1};
+    //mColor = QVector<GLfloat>{ 1, 1 ,1, 1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ,1, 1, 1, 1, 1, 1 };
 }
 
 
