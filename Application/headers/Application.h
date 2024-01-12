@@ -18,6 +18,15 @@ public:
 public slots:
     void openFileDialogBox();
     void clearData();
+
+    //void moveUp();
+    //void moveDown();
+
+    //void tiltUp();
+    //void tiltDown();
+    //void tiltLeft();
+    //void tiltRigth();
+
     void clipMesh();
     void generatePath();
 
@@ -53,6 +62,16 @@ private:
     QDoubleSpinBox* mDoubleSpinBoxNormalX;
     QDoubleSpinBox* mDoubleSpinBoxNormalY;
     QDoubleSpinBox* mDoubleSpinBoxNormalZ;
+
+    QPushButton* mPushButtonAddPlane;
+
+    QPushButton* mPushButtonMoveUp;
+    QPushButton* mPushButtonMoveDown;
+
+    QPushButton* mPushButtonTiltUp;
+    QPushButton* mPushButtonTiltDown;
+    QPushButton* mPushButtonTiltLeft;
+    QPushButton* mPushButtonTiltRight;
 
     QLabel* mLabelPathInterval;
 

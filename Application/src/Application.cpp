@@ -56,41 +56,41 @@ void Application :: setupUi()
 
 
     mLabelMovePlaneToPoint = new QLabel("Move Plane to Point", this);
-    mLabelMovePlaneToPoint->setGeometry(QRect(1010, 81, 187, 41));
+    mLabelMovePlaneToPoint->setGeometry(QRect(1010, 110, 187, 41));
     mLabelMovePlaneToPoint->setFont(fontBig);
     mLabelMovePlaneToPoint->setLayoutDirection(Qt::LeftToRight);
 
 
     mLabelPointX = new QLabel("X", this);
-    mLabelPointX->setGeometry(QRect(945, 121, 51, 31));
+    mLabelPointX->setGeometry(QRect(945, 150, 51, 31));
     mLabelPointX->setFont(fontSmall);
     mLabelPointX->setLayoutDirection(Qt::LeftToRight);
 
     mDoubleSpinBoxPointX = new QDoubleSpinBox(this);
-    mDoubleSpinBoxPointX->setGeometry(QRect(960, 121, 71, 31));
-    mDoubleSpinBoxPointX->setMinimum(-999);
+    mDoubleSpinBoxPointX->setGeometry(QRect(960, 150, 71, 31));
+    mDoubleSpinBoxPointX->setMinimum(-99);
     mDoubleSpinBoxPointX->setLayoutDirection(Qt::LeftToRight);
 
 
     mLabelPointY = new QLabel("Y", this);
-    mLabelPointY->setGeometry(QRect(1055, 121, 51, 31));
+    mLabelPointY->setGeometry(QRect(1055, 150, 51, 31));
     mLabelPointY->setFont(fontSmall);
     mLabelPointY->setLayoutDirection(Qt::LeftToRight);
 
     mDoubleSpinBoxPointY = new QDoubleSpinBox(this);
-    mDoubleSpinBoxPointY->setGeometry(QRect(1070, 121, 71, 31));
-    mDoubleSpinBoxPointY->setMinimum(-999);
+    mDoubleSpinBoxPointY->setGeometry(QRect(1070, 150, 71, 31));
+    mDoubleSpinBoxPointY->setMinimum(-99);
     mDoubleSpinBoxPointY->setLayoutDirection(Qt::LeftToRight);
 
 
     mLabelPointZ = new QLabel("Z", this);
-    mLabelPointZ->setGeometry(QRect(1165, 121, 51, 31));
+    mLabelPointZ->setGeometry(QRect(1165, 150, 51, 31));
     mLabelPointZ->setFont(fontSmall);
     mLabelPointZ->setLayoutDirection(Qt::LeftToRight);
 
     mDoubleSpinBoxPointZ = new QDoubleSpinBox(this);
-    mDoubleSpinBoxPointZ->setGeometry(QRect(1180, 121, 71, 31));
-    mDoubleSpinBoxPointZ->setMinimum(-999);
+    mDoubleSpinBoxPointZ->setGeometry(QRect(1180, 150, 71, 31));
+    mDoubleSpinBoxPointZ->setMinimum(-99);
     mDoubleSpinBoxPointZ->setLayoutDirection(Qt::LeftToRight);
 
 
@@ -107,7 +107,7 @@ void Application :: setupUi()
 
     mDoubleSpinBoxNormalX = new QDoubleSpinBox(this);
     mDoubleSpinBoxNormalX->setGeometry(QRect(960, 232, 71, 31));
-    mDoubleSpinBoxNormalX->setMinimum(-999);
+    mDoubleSpinBoxNormalX->setMinimum(-99);
     mDoubleSpinBoxNormalX->setLayoutDirection(Qt::LeftToRight);
 
 
@@ -118,7 +118,7 @@ void Application :: setupUi()
 
     mDoubleSpinBoxNormalY = new QDoubleSpinBox(this);
     mDoubleSpinBoxNormalY->setGeometry(QRect(1070, 232, 71, 31));
-    mDoubleSpinBoxNormalY->setMinimum(-999);
+    mDoubleSpinBoxNormalY->setMinimum(-99);
     mDoubleSpinBoxNormalY->setLayoutDirection(Qt::LeftToRight);
 
 
@@ -129,29 +129,67 @@ void Application :: setupUi()
 
     mDoubleSpinBoxNormalZ = new QDoubleSpinBox(this);
     mDoubleSpinBoxNormalZ->setGeometry(QRect(1180, 232, 71, 31));
-    mDoubleSpinBoxNormalZ->setMinimum(-999);
+    mDoubleSpinBoxNormalZ->setMinimum(-99);
     mDoubleSpinBoxNormalZ->setLayoutDirection(Qt::LeftToRight);
 
 
+    mPushButtonMoveUp = new QPushButton("Add Plane", this);
+    mPushButtonMoveUp->setGeometry(QRect(1030, 290, 151, 31));
+    mPushButtonMoveUp->setFont(fontSmall);
+    mPushButtonMoveUp->setLayoutDirection(Qt::LeftToRight);
+
+    
+    mPushButtonMoveUp = new QPushButton("^", this);
+    mPushButtonMoveUp->setGeometry(QRect(1030, 350, 31, 31));
+    mPushButtonMoveUp->setFont(fontSmall);
+    mPushButtonMoveUp->setLayoutDirection(Qt::LeftToRight);
+
+    mPushButtonMoveDown = new QPushButton("v", this);
+    mPushButtonMoveDown->setGeometry(QRect(1030, 390, 31, 31));
+    mPushButtonMoveDown->setFont(fontSmall);
+    mPushButtonMoveDown->setLayoutDirection(Qt::LeftToRight);
+
+
+    mPushButtonTiltUp = new QPushButton("^", this);
+    mPushButtonTiltUp->setGeometry(QRect(1120, 340, 31, 31));
+    mPushButtonTiltUp->setFont(fontSmall);
+    mPushButtonTiltUp->setLayoutDirection(Qt::LeftToRight);
+               
+    mPushButtonTiltDown = new QPushButton("v", this);
+    mPushButtonTiltDown->setGeometry(QRect(1120, 400, 31, 31));
+    mPushButtonTiltDown->setFont(fontSmall);
+    mPushButtonTiltDown->setLayoutDirection(Qt::LeftToRight);
+               
+    mPushButtonTiltLeft = new QPushButton("<", this);
+    mPushButtonTiltLeft->setGeometry(QRect(1090, 370, 31, 31));
+    mPushButtonTiltLeft->setFont(fontSmall);
+    mPushButtonTiltLeft->setLayoutDirection(Qt::LeftToRight);
+               
+    mPushButtonTiltRight = new QPushButton(">", this);
+    mPushButtonTiltRight->setGeometry(QRect(1150, 370, 31, 31));
+    mPushButtonTiltRight->setFont(fontSmall);
+    mPushButtonTiltRight->setLayoutDirection(Qt::LeftToRight);
+
+
     mLabelPathInterval = new QLabel("Path Interval/Size", this);
-    mLabelPathInterval->setGeometry(QRect(1020, 301, 171, 41));
+    mLabelPathInterval->setGeometry(QRect(1020, 510, 171, 41));
     mLabelPathInterval->setFont(fontBig);
     mLabelPathInterval->setLayoutDirection(Qt::LeftToRight);
 
     mDoubleSpinBoxPathInterval = new QDoubleSpinBox(this);
-    mDoubleSpinBoxPathInterval->setGeometry(QRect(1020, 341, 161, 31));
+    mDoubleSpinBoxPathInterval->setGeometry(QRect(1020, 550, 161, 31));
     mDoubleSpinBoxPathInterval->setMinimum(1);
     mDoubleSpinBoxPathInterval->setLayoutDirection(Qt::LeftToRight);
 
 
     mPushButtonClipMesh = new QPushButton("Clip Mesh", this);
-    mPushButtonClipMesh->setGeometry(QRect(950, 431, 151, 31));
+    mPushButtonClipMesh->setGeometry(QRect(950, 640, 151, 31));
     mPushButtonClipMesh->setFont(fontSmall);
     mPushButtonClipMesh->setLayoutDirection(Qt::LeftToRight);
 
 
     mPushButtonGeneratePath = new QPushButton("Generate Path", this);
-    mPushButtonGeneratePath->setGeometry(QRect(1110, 431, 151, 31));
+    mPushButtonGeneratePath->setGeometry(QRect(1110, 640, 151, 31));
     mPushButtonGeneratePath->setFont(fontSmall);
     mPushButtonGeneratePath->setLayoutDirection(Qt::LeftToRight);
 }
