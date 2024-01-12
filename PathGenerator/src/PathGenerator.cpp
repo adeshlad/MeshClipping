@@ -33,8 +33,8 @@ Boundary PathGenerator::generatePath(const Mesh& inMesh, const Plane& inPlane, c
 	// after this loop either positivePlane or negativePlane will reach the Mesh.
 	while (positivePlaneBoundary.points().size() == 0 && negativePlaneBoundary.points().size() == 0)
 	{
-		positivePlane.shiftPlaneBy(inInterval);
-		negativePlane.shiftPlaneBy(-inInterval);
+		positivePlane.moveUp(inInterval);
+		negativePlane.moveDown(inInterval);
 
 		positivePlaneBoundary = clipper.getMeshPlaneIntersection(inMesh, positivePlane);
 		negativePlaneBoundary = clipper.getMeshPlaneIntersection(inMesh, negativePlane);
@@ -47,7 +47,7 @@ Boundary PathGenerator::generatePath(const Mesh& inMesh, const Plane& inPlane, c
 		{
 			path.addPointToBoundary(point);
 		}
-		positivePlane.shiftPlaneBy(inInterval);
+		positivePlane.moveUp(inInterval);
 		positivePlaneBoundary = clipper.getMeshPlaneIntersection(inMesh, positivePlane);
 	}
 
@@ -58,7 +58,7 @@ Boundary PathGenerator::generatePath(const Mesh& inMesh, const Plane& inPlane, c
 		{
 			path.addPointToBoundary(point);
 		}
-		negativePlane.shiftPlaneBy(-inInterval);
+		negativePlane.moveDown(inInterval);
 		negativePlaneBoundary = clipper.getMeshPlaneIntersection(inMesh, negativePlane);
 	}
 

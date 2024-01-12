@@ -3,7 +3,10 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_Application.h"
 
+#include "Clipper.h"
 #include "Mesh.h"
+#include "PathGenerator.h"
+#include "Plane.h"
 #include "OpenGLWindow.h"
 
 class Application : public QMainWindow
@@ -16,18 +19,21 @@ public:
 
 
 public slots:
-    void openFileDialogBox();
+    void importSTL();
     void clearData();
 
-    //void moveUp();
-    //void moveDown();
-
-    //void tiltUp();
-    //void tiltDown();
-    //void tiltLeft();
-    //void tiltRigth();
-
+    void addPlane();
     void clipMesh();
+
+    void movePlaneUp();
+    void movePlaneDown();
+
+    void tiltPlaneBack();
+    void tiltPlaneFront();
+    void tiltPlaneLeft();
+    void tiltPlaneRight();
+
+    void clipMeshWithCustomPlane();
     void generatePath();
 
 
@@ -68,8 +74,8 @@ private:
     QPushButton* mPushButtonMoveUp;
     QPushButton* mPushButtonMoveDown;
 
-    QPushButton* mPushButtonTiltUp;
-    QPushButton* mPushButtonTiltDown;
+    QPushButton* mPushButtonTiltBack;
+    QPushButton* mPushButtonTiltFront;
     QPushButton* mPushButtonTiltLeft;
     QPushButton* mPushButtonTiltRight;
 
@@ -83,5 +89,11 @@ private:
 
     QStatusBar* mStatusBar;
 
+    Clipper mClipper;
+
     Mesh mMesh;
+
+    PathGenerator mPathGenerator;
+
+    Plane mPlane;
 };

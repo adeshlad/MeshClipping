@@ -3,7 +3,7 @@
 
 #include "Plane.h"
 
-Plane::Plane() : mPointOnPlane(0, 0, 0), mNormal(Point3D(0, 0, 0)), mConstant(0)
+Plane::Plane() : mPointOnPlane(0, 0, 0), mNormal(Point3D(0, 0, 1)), mConstant(0)
 {
 
 }
@@ -35,9 +35,62 @@ void Plane::setPlaneNormal(const Point3D inNormal)
 	updateConstant();
 }
 
-void Plane::shiftPlaneBy(const double inBy)
+void Plane::moveUp(const double inBy)
 {
 	mConstant = mConstant + inBy;
+}
+
+void Plane::moveDown(const double inBy)
+{
+	mConstant = mConstant - inBy;
+}
+
+void Plane::tiltFront(const double inBy)
+{
+	double by = (1.0 / 90.0) * inBy;
+
+	double normalX = mNormal.x();
+	double normalY = mNormal.y() - by;
+	double normalZ = mNormal.z() - by;
+
+	mNormal = Point3D(normalX, normalY, normalZ);
+	updateConstant();
+}
+
+void Plane::tiltBack(const double inBy)
+{
+	double by = (1.0 / 90.0) * inBy;
+
+	double normalX = mNormal.x();
+	double normalY = mNormal.y() + by;
+	double normalZ = mNormal.z() - by;
+
+	mNormal = Point3D(normalX, normalY, normalZ);
+	updateConstant();
+}
+
+void Plane::tiltLeft(const double inBy)
+{
+	double by = (1.0 / 90.0) * inBy;
+
+	double normalX = mNormal.x() - by;
+	double normalY = mNormal.y();
+	double normalZ = mNormal.z() - by;
+
+	mNormal = Point3D(normalX, normalY, normalZ);
+	updateConstant();
+}
+
+void Plane::tiltRight(const double inBy)
+{
+	double by = (1.0 / 90.0) * inBy;
+
+	double normalX = mNormal.x() + by;
+	double normalY = mNormal.y();
+	double normalZ = mNormal.z() - by;
+
+	mNormal = Point3D(normalX, normalY, normalZ);
+	updateConstant();
 }
 
 void Plane::updateConstant()

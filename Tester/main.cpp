@@ -17,25 +17,25 @@ int main()
 	std::vector<Triangle> triangles;
 
 	Reader reader;
-	reader.readSTL("F://adesh_workspace//MeshClipping//Reader//resources//flowerpot.stl", triangles);
+	reader.readSTL("F:\\adesh_workspace\\MeshClipping\\Application\\resources\\cube.stl", triangles);
 
 	Mesh mesh(triangles);
+	mesh.updateBBox();
+	//Plane plane;
+	//plane.movePlaneToPoint(Point3D(0, 0, 0));
+	//plane.setPlaneNormal(Point3D(0, 0, -1));
 
-	Plane plane;
-	plane.movePlaneToPoint(Point3D(0, 0, 0));
-	plane.setPlaneNormal(Point3D(0, 0, -1));
+	//Clipper clipper;
 
-	Clipper clipper;
+	//Mesh clippedMesh = clipper.clipMeshWithPlane(mesh, plane);
 
-	Mesh clippedMesh = clipper.clipMeshWithPlane(mesh, plane);
+	//PathGenerator pathGenerator;
+	//Boundary path = pathGenerator.generatePath(mesh, plane, 20);
 
-	PathGenerator pathGenerator;
-	Boundary path = pathGenerator.generatePath(mesh, plane, 20);
-
-	Writer writer;
-	writer.write("F://adesh_workspace//MeshClipping//Writer//resources//mesh.txt", mesh);
-	writer.write("F://adesh_workspace//MeshClipping//Writer//resources//clippedMesh.txt", clippedMesh);
-	writer.write("F://adesh_workspace//MeshClipping//Writer//resources//path.txt", path);
+	//Writer writer;
+	//writer.write("F://adesh_workspace//MeshClipping//Writer//resources//mesh.txt", mesh);
+	//writer.write("F://adesh_workspace//MeshClipping//Writer//resources//clippedMesh.txt", clippedMesh);
+	//writer.write("F://adesh_workspace//MeshClipping//Writer//resources//path.txt", path);
 
 	std::cout << "done";
 }

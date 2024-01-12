@@ -12,14 +12,23 @@ Application::Application(QWidget *parent) : QMainWindow(parent), mMesh(std::vect
 {
     setupUi();
 
-    connect(mSelectFileButton, &QPushButton::clicked, this, &Application::openFileDialogBox);
+    connect(mSelectFileButton, &QPushButton::clicked, this, &Application::importSTL);
     connect(mClearDataButton, &QPushButton::clicked, this, &Application::clearData);
 
-    connect(mPushButtonClipMesh, &QPushButton::clicked, this, &Application::clipMesh);
+    connect(mPushButtonClipMesh, &QPushButton::clicked, this, &Application::clipMeshWithCustomPlane);
     connect(mPushButtonGeneratePath, &QPushButton::clicked, this, &Application::generatePath);
+
+    connect(mPushButtonAddPlane, &QPushButton::clicked, this, &Application::addPlane);
+
+    connect(mPushButtonMoveUp, &QPushButton::clicked, this, &Application::movePlaneUp);
+    connect(mPushButtonMoveDown, &QPushButton::clicked, this, &Application::movePlaneDown);
+
+    connect(mPushButtonTiltBack, &QPushButton::clicked, this, &Application::tiltPlaneBack);
+    connect(mPushButtonTiltFront, &QPushButton::clicked, this, &Application::tiltPlaneFront);
+    connect(mPushButtonTiltLeft, &QPushButton::clicked, this, &Application::tiltPlaneLeft);
+    connect(mPushButtonTiltRight, &QPushButton::clicked, this, &Application::tiltPlaneRight);
     
     connect(mRenderer, SIGNAL(shapeUpdate()), mRenderer, SLOT(update()));
-
 }
 
 Application::~Application()
@@ -133,10 +142,10 @@ void Application :: setupUi()
     mDoubleSpinBoxNormalZ->setLayoutDirection(Qt::LeftToRight);
 
 
-    mPushButtonMoveUp = new QPushButton("Add Plane", this);
-    mPushButtonMoveUp->setGeometry(QRect(1030, 290, 151, 31));
-    mPushButtonMoveUp->setFont(fontSmall);
-    mPushButtonMoveUp->setLayoutDirection(Qt::LeftToRight);
+    mPushButtonAddPlane = new QPushButton("Add Plane", this);
+    mPushButtonAddPlane->setGeometry(QRect(1030, 290, 151, 31));
+    mPushButtonAddPlane->setFont(fontSmall);
+    mPushButtonAddPlane->setLayoutDirection(Qt::LeftToRight);
 
     
     mPushButtonMoveUp = new QPushButton("^", this);
@@ -150,15 +159,15 @@ void Application :: setupUi()
     mPushButtonMoveDown->setLayoutDirection(Qt::LeftToRight);
 
 
-    mPushButtonTiltUp = new QPushButton("^", this);
-    mPushButtonTiltUp->setGeometry(QRect(1120, 340, 31, 31));
-    mPushButtonTiltUp->setFont(fontSmall);
-    mPushButtonTiltUp->setLayoutDirection(Qt::LeftToRight);
+    mPushButtonTiltBack = new QPushButton("^", this);
+    mPushButtonTiltBack->setGeometry(QRect(1120, 340, 31, 31));
+    mPushButtonTiltBack->setFont(fontSmall);
+    mPushButtonTiltBack->setLayoutDirection(Qt::LeftToRight);
                
-    mPushButtonTiltDown = new QPushButton("v", this);
-    mPushButtonTiltDown->setGeometry(QRect(1120, 400, 31, 31));
-    mPushButtonTiltDown->setFont(fontSmall);
-    mPushButtonTiltDown->setLayoutDirection(Qt::LeftToRight);
+    mPushButtonTiltFront = new QPushButton("v", this);
+    mPushButtonTiltFront->setGeometry(QRect(1120, 400, 31, 31));
+    mPushButtonTiltFront->setFont(fontSmall);
+    mPushButtonTiltFront->setLayoutDirection(Qt::LeftToRight);
                
     mPushButtonTiltLeft = new QPushButton("<", this);
     mPushButtonTiltLeft->setGeometry(QRect(1090, 370, 31, 31));
@@ -194,7 +203,7 @@ void Application :: setupUi()
     mPushButtonGeneratePath->setLayoutDirection(Qt::LeftToRight);
 }
 
-void Application::openFileDialogBox()
+void Application::importSTL()
 {
     QString QfilePath = QFileDialog::getOpenFileName(this, tr("Open STL File"), "", tr("STL Files (*.stl); ; All Files (*)"));
 
@@ -238,7 +247,81 @@ void Application::clearData()
     mRenderer->updateData(points, colors);
 }
 
+void Application::addPlane()
+{
+    double planeX = mMesh.BBoxCenterPoint().x();
+    double planeY = mMesh.BBoxCenterPoint().y();
+    double planeZ = mMesh.BBoxMinPoint().z();
+
+    mPlane.setPlaneNormal(Point3D(0, 0, 1));
+    mPlane.movePlaneToPoint(Point3D(planeX, planeY, planeZ));
+    clipMesh();
+}
+
 void Application::clipMesh()
+{
+    Mesh clippedMesh = mClipper.clipMeshWithPlane(mMesh, mPlane);
+
+    QVector<GLfloat> points;
+    QVector<GLfloat> colors;
+
+    for (Point3D point : clippedMesh.points())
+    {
+        points.push_back(point.x());
+        points.push_back(point.y());
+        points.push_back(point.z());
+
+        colors.push_back(1.0);
+        colors.push_back(1.0);
+        colors.push_back(1.0);
+    }
+
+    mRenderer->setVertices(points);
+    mRenderer->setColors(colors);
+    mRenderer->updateData(points, colors);
+}
+
+void Application::movePlaneUp()
+{
+    mPlane.moveUp(1.0);
+    clipMesh();
+}
+
+void Application::movePlaneDown()
+{
+    mPlane.moveDown(1.0);
+    clipMesh();
+}
+
+void Application::tiltPlaneFront()
+{
+    mPlane.tiltFront(1.0);
+    //mPlane.movePlaneToPoint(mMesh.mCenter);
+    clipMesh();
+}
+
+void Application::tiltPlaneBack()
+{
+    mPlane.tiltBack(1.0);
+    //mPlane.movePlaneToPoint(mMesh.mCenter);
+    clipMesh();
+}
+
+void Application::tiltPlaneLeft()
+{
+    mPlane.tiltLeft(1.0);
+    //mPlane.movePlaneToPoint(mMesh.mCenter);
+    clipMesh();
+}
+
+void Application::tiltPlaneRight()
+{
+    mPlane.tiltRight(1.0);
+    //mPlane.movePlaneToPoint(mMesh.mCenter);
+    clipMesh();
+}
+
+void Application::clipMeshWithCustomPlane()
 {
     double planePointX = mDoubleSpinBoxPointX->value();
     double planePointY = mDoubleSpinBoxPointY->value();
@@ -248,13 +331,10 @@ void Application::clipMesh()
     double planeNormalY = mDoubleSpinBoxNormalY->value();
     double planeNormalZ = mDoubleSpinBoxNormalZ->value();
 
-    Plane plane;
-    plane.movePlaneToPoint(Point3D(planePointX, planePointX, planePointZ));
-    plane.setPlaneNormal(Point3D(planeNormalX, planeNormalY, planeNormalZ));
+    mPlane.movePlaneToPoint(Point3D(planePointX, planePointX, planePointZ));
+    mPlane.setPlaneNormal(Point3D(planeNormalX, planeNormalY, planeNormalZ));
 
-    Clipper clipper;
-
-    Mesh clippedMesh = clipper.clipMeshWithPlane(mMesh, plane);
+    Mesh clippedMesh = mClipper.clipMeshWithPlane(mMesh, mPlane);
 
     QVector<GLfloat> points;
     QVector<GLfloat> colors;
@@ -287,13 +367,10 @@ void Application::generatePath()
 
     double pathInterval = mDoubleSpinBoxPathInterval->value();
 
-    Plane plane;
-    plane.movePlaneToPoint(Point3D(planePointX, planePointX, planePointZ));
-    plane.setPlaneNormal(Point3D(planeNormalX, planeNormalY, planeNormalZ));
+    mPlane.movePlaneToPoint(Point3D(planePointX, planePointX, planePointZ));
+    mPlane.setPlaneNormal(Point3D(planeNormalX, planeNormalY, planeNormalZ));
 
-    PathGenerator pathGenerator;
-
-    Boundary path = pathGenerator.generatePath(mMesh, plane, pathInterval);
+    Boundary path = mPathGenerator.generatePath(mMesh, mPlane, pathInterval);
 
     QVector<GLfloat> points;
     QVector<GLfloat> colors;
