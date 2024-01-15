@@ -22,7 +22,7 @@ public slots:
     void importSTL();
     void clearData();
 
-    void addPlane();
+    void addClippingPlane();
     void clipMesh();
 
     void movePlaneUp();
@@ -39,14 +39,14 @@ public slots:
 
 private:
     void setupUi();
-
+    void renderMesh(const Mesh& inMesh) const;
 
 private:
     QWidget* mCentralWidget;
 
     OpenGLWindow* mRenderer;
 
-    QPushButton* mSelectFileButton;
+    QPushButton* mImportSTLButton;
     QPushButton* mClearDataButton;
 
     QLabel* mLabelMovePlaneToPoint;
@@ -92,6 +92,8 @@ private:
     Clipper mClipper;
 
     Mesh mMesh;
+
+    Mesh mClippedMesh;
 
     PathGenerator mPathGenerator;
 

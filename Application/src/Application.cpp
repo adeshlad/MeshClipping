@@ -8,17 +8,17 @@
 #include "Triangle.h"
 
 
-Application::Application(QWidget *parent) : QMainWindow(parent), mMesh(std::vector<Triangle>{})
+Application::Application(QWidget *parent) : QMainWindow(parent), mMesh(std::vector<Triangle>{}), mClippedMesh(std::vector<Triangle>{})
 {
     setupUi();
 
-    connect(mSelectFileButton, &QPushButton::clicked, this, &Application::importSTL);
+    connect(mImportSTLButton, &QPushButton::clicked, this, &Application::importSTL);
     connect(mClearDataButton, &QPushButton::clicked, this, &Application::clearData);
 
     connect(mPushButtonClipMesh, &QPushButton::clicked, this, &Application::clipMeshWithCustomPlane);
     connect(mPushButtonGeneratePath, &QPushButton::clicked, this, &Application::generatePath);
 
-    connect(mPushButtonAddPlane, &QPushButton::clicked, this, &Application::addPlane);
+    connect(mPushButtonAddPlane, &QPushButton::clicked, this, &Application::addClippingPlane);
 
     connect(mPushButtonMoveUp, &QPushButton::clicked, this, &Application::movePlaneUp);
     connect(mPushButtonMoveDown, &QPushButton::clicked, this, &Application::movePlaneDown);
@@ -52,10 +52,10 @@ void Application :: setupUi()
     fontBig.setPointSize(16);
 
 
-    mSelectFileButton = new QPushButton("Import STL", this);
-    mSelectFileButton->setGeometry(QRect(950, 10, 151, 31));
-    mSelectFileButton->setFont(fontSmall);
-    mSelectFileButton->setLayoutDirection(Qt::LeftToRight);
+    mImportSTLButton = new QPushButton("Import STL", this);
+    mImportSTLButton->setGeometry(QRect(950, 10, 151, 31));
+    mImportSTLButton->setFont(fontSmall);
+    mImportSTLButton->setLayoutDirection(Qt::LeftToRight);
 
 
     mClearDataButton = new QPushButton("Clear Data", this);
@@ -142,7 +142,7 @@ void Application :: setupUi()
     mDoubleSpinBoxNormalZ->setLayoutDirection(Qt::LeftToRight);
 
 
-    mPushButtonAddPlane = new QPushButton("Add Plane", this);
+    mPushButtonAddPlane = new QPushButton("Add Cliping Plane", this);
     mPushButtonAddPlane->setGeometry(QRect(1030, 290, 151, 31));
     mPushButtonAddPlane->setFont(fontSmall);
     mPushButtonAddPlane->setLayoutDirection(Qt::LeftToRight);
@@ -203,6 +203,50 @@ void Application :: setupUi()
     mPushButtonGeneratePath->setLayoutDirection(Qt::LeftToRight);
 }
 
+void Application::renderMesh(const Mesh& inMesh) const
+{
+    QVector<GLfloat> points;
+    QVector<GLfloat> colors;
+
+    for (Triangle triangle : inMesh.triangles())
+    {
+        points.push_back(triangle.p1().x());
+        points.push_back(triangle.p1().y());
+        points.push_back(triangle.p1().z());
+
+        colors.push_back(1.0);
+        colors.push_back(1.0);
+        colors.push_back(0.0);
+
+
+        points.push_back(triangle.p2().x());
+        points.push_back(triangle.p2().y());
+        points.push_back(triangle.p2().z());
+
+        colors.push_back(1.0);
+        colors.push_back(1.0);
+        colors.push_back(0.0);
+
+
+        points.push_back(triangle.p3().x());
+        points.push_back(triangle.p3().y());
+        points.push_back(triangle.p3().z());
+
+        colors.push_back(1.0);
+        colors.push_back(1.0);
+        colors.push_back(0.0);
+    }
+
+    mRenderer->setVertices(points);
+    mRenderer->setColors(colors);
+    mRenderer->updateData(points, colors);
+}
+
+void Application::clipMesh()
+{
+    mClippedMesh = mClipper.clipMeshWithPlane(mMesh, mPlane);
+}
+
 void Application::importSTL()
 {
     QString QfilePath = QFileDialog::getOpenFileName(this, tr("Open STL File"), "", tr("STL Files (*.stl); ; All Files (*)"));
@@ -217,23 +261,7 @@ void Application::importSTL()
 
         mMesh = Mesh(triangles);
 
-        QVector<GLfloat> points;
-        QVector<GLfloat> colors;
-
-        for (Point3D point : mMesh.points())
-        {
-            points.push_back(point.x());
-            points.push_back(point.y());
-            points.push_back(point.z());
-
-            colors.push_back(1.0);
-            colors.push_back(1.0);
-            colors.push_back(1.0);
-        }
-        
-        mRenderer->setVertices(points);
-        mRenderer->setColors(colors);
-        mRenderer->updateData(points, colors);
+        renderMesh(mMesh);
     }
 }
 
@@ -247,7 +275,7 @@ void Application::clearData()
     mRenderer->updateData(points, colors);
 }
 
-void Application::addPlane()
+void Application::addClippingPlane()
 {
     double planeX = mMesh.BBoxCenterPoint().x();
     double planeY = mMesh.BBoxCenterPoint().y();
@@ -255,70 +283,50 @@ void Application::addPlane()
 
     mPlane.setPlaneNormal(Point3D(0, 0, 1));
     mPlane.movePlaneToPoint(Point3D(planeX, planeY, planeZ));
+
     clipMesh();
-}
-
-void Application::clipMesh()
-{
-    Mesh clippedMesh = mClipper.clipMeshWithPlane(mMesh, mPlane);
-
-    QVector<GLfloat> points;
-    QVector<GLfloat> colors;
-
-    for (Point3D point : clippedMesh.points())
-    {
-        points.push_back(point.x());
-        points.push_back(point.y());
-        points.push_back(point.z());
-
-        colors.push_back(1.0);
-        colors.push_back(1.0);
-        colors.push_back(1.0);
-    }
-
-    mRenderer->setVertices(points);
-    mRenderer->setColors(colors);
-    mRenderer->updateData(points, colors);
 }
 
 void Application::movePlaneUp()
 {
     mPlane.moveUp(1.0);
     clipMesh();
+    renderMesh(mClippedMesh);
 }
 
 void Application::movePlaneDown()
 {
     mPlane.moveDown(1.0);
     clipMesh();
+    renderMesh(mClippedMesh);
 }
 
 void Application::tiltPlaneFront()
 {
     mPlane.tiltFront(1.0);
-    //mPlane.movePlaneToPoint(mMesh.mCenter);
     clipMesh();
+    renderMesh(mClippedMesh);
 }
 
 void Application::tiltPlaneBack()
 {
     mPlane.tiltBack(1.0);
-    //mPlane.movePlaneToPoint(mMesh.mCenter);
     clipMesh();
+    renderMesh(mClippedMesh);
 }
 
 void Application::tiltPlaneLeft()
 {
     mPlane.tiltLeft(1.0);
-    //mPlane.movePlaneToPoint(mMesh.mCenter);
     clipMesh();
+    renderMesh(mClippedMesh);
 }
 
 void Application::tiltPlaneRight()
 {
     mPlane.tiltRight(1.0);
-    //mPlane.movePlaneToPoint(mMesh.mCenter);
     clipMesh();
+    renderMesh(mClippedMesh);
 }
 
 void Application::clipMeshWithCustomPlane()
@@ -334,25 +342,8 @@ void Application::clipMeshWithCustomPlane()
     mPlane.movePlaneToPoint(Point3D(planePointX, planePointX, planePointZ));
     mPlane.setPlaneNormal(Point3D(planeNormalX, planeNormalY, planeNormalZ));
 
-    Mesh clippedMesh = mClipper.clipMeshWithPlane(mMesh, mPlane);
-
-    QVector<GLfloat> points;
-    QVector<GLfloat> colors;
-
-    for (Point3D point : clippedMesh.points())
-    {
-        points.push_back(point.x());
-        points.push_back(point.y());
-        points.push_back(point.z());
-
-        colors.push_back(1.0);
-        colors.push_back(1.0);
-        colors.push_back(1.0);
-    }
-
-    mRenderer->setVertices(points);
-    mRenderer->setColors(colors);
-    mRenderer->updateData(points, colors);
+    clipMesh();
+    renderMesh(mClippedMesh);
 }
 
 void Application::generatePath()
@@ -383,7 +374,7 @@ void Application::generatePath()
 
         colors.push_back(1.0);
         colors.push_back(1.0);
-        colors.push_back(1.0);
+        colors.push_back(0.0);
     }
 
     mRenderer->setVertices(points);

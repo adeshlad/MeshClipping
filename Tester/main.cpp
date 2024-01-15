@@ -17,10 +17,10 @@ int main()
 	std::vector<Triangle> triangles;
 
 	Reader reader;
-	reader.readSTL("F:\\adesh_workspace\\MeshClipping\\Application\\resources\\cube.stl", triangles);
+	reader.readSTL("F:\\adesh_workspace\\MeshClipping\\Application\\resources\\flowerpot.stl", triangles);
 
 	Mesh mesh(triangles);
-	mesh.updateBBox();
+	//mesh.updateBBox();
 	//Plane plane;
 	//plane.movePlaneToPoint(Point3D(0, 0, 0));
 	//plane.setPlaneNormal(Point3D(0, 0, -1));
