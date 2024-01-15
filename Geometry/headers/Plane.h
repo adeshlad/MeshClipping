@@ -39,7 +39,6 @@ private:
 
 	// private - update Plane Constant.
 	void updateConstant();
-	void updateConstant(const double inConstant);
 
 private:
 	Point3D mPointOnPlane;

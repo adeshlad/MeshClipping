@@ -21,9 +21,13 @@ int main()
 
 	Mesh mesh(triangles);
 	//mesh.updateBBox();
-	//Plane plane;
-	//plane.movePlaneToPoint(Point3D(0, 0, 0));
-	//plane.setPlaneNormal(Point3D(0, 0, -1));
+
+	Plane plane;
+	plane.movePlaneToPoint(Point3D(1, 2, 3));
+	plane.setPlaneNormal(Point3D(0, -1, 1));
+
+	std::cout << "done";
+	plane.moveUp(1.0);
 
 	//Clipper clipper;
 
