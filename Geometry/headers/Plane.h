@@ -23,14 +23,22 @@ public:
 	// set Plane normal, keeping same Point.
 	void setPlaneNormal(const Point3D inNormal);
 
-	// shift Plane in (+ve value) or against (-ve value) the direction of normal by specified value.
-	void shiftPlaneBy(const double inBy);
+	// move Plane in the direction of normal by specified value.
+	void moveUp(const double inBy);
+
+	// move Plane against the direction of normal by specified value.
+	void moveDown(const double inBy);
+
+	// tilt Plane.
+	void tiltBack(const double inBy);
+	void tiltFront(const double inBy);
+	void tiltLeft(const double inBy);
+	void tiltRight(const double inBy);
 
 private:
 
-	// private - update Plane Constant.
+	// update Plane Constant.
 	void updateConstant();
-	void updateConstant(const double inConstant);
 
 private:
 	Point3D mPointOnPlane;

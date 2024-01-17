@@ -22,18 +22,16 @@ public:
     void setColors(QVector<GLfloat>& colors);
     void updateData(const QVector<GLfloat>& vertices, const QVector<GLfloat>& colors);
 
-
 protected:
-    void paintGL() override;
     void initializeGL() override;
-
+    void paintGL() override;
 
 private:
-    void reset();
     void mouseMoveEvent(QMouseEvent* event);
+    void reset();
+    void wheelEvent(QWheelEvent* event);
     void zoomIn();
     void zoomOut();
-    void wheelEvent(QWheelEvent* event);
 
 private:
     bool mAnimating = false;
@@ -53,7 +51,6 @@ private:
     int mMatrixUniform;
     QColor mBackground;
     QMetaObject::Connection mContextWatchConnection;
-
 
     QVector<GLfloat> mVertice;
     QVector<GLfloat> mColor;

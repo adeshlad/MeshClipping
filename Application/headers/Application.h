@@ -3,8 +3,11 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_Application.h"
 
+#include "Clipper.h"
 #include "Mesh.h"
 #include "OpenGLWindow.h"
+#include "PathGenerator.h"
+#include "Plane.h"
 
 class Application : public QMainWindow
 {
@@ -14,24 +17,34 @@ public:
     Application(QWidget *parent = nullptr);
     ~Application();
 
-
 public slots:
-    void openFileDialogBox();
+    void importSTL();
     void clearData();
-    void clipMesh();
-    void generatePath();
 
+    void clipMesh();
+    void addClippingPlane();
+
+    void movePlaneUp();
+    void movePlaneDown();
+
+    void tiltPlaneBack();
+    void tiltPlaneFront();
+    void tiltPlaneLeft();
+    void tiltPlaneRight();
+
+    void clipMeshWithCustomPlane();
+    void generatePath();
 
 private:
     void setupUi();
-
+    void renderMesh(const Mesh& inMesh) const;
 
 private:
     QWidget* mCentralWidget;
 
     OpenGLWindow* mRenderer;
 
-    QPushButton* mSelectFileButton;
+    QPushButton* mImportSTLButton;
     QPushButton* mClearDataButton;
 
     QLabel* mLabelMovePlaneToPoint;
@@ -54,6 +67,16 @@ private:
     QDoubleSpinBox* mDoubleSpinBoxNormalY;
     QDoubleSpinBox* mDoubleSpinBoxNormalZ;
 
+    QPushButton* mPushButtonAddPlane;
+
+    QPushButton* mPushButtonMoveUp;
+    QPushButton* mPushButtonMoveDown;
+
+    QPushButton* mPushButtonTiltBack;
+    QPushButton* mPushButtonTiltFront;
+    QPushButton* mPushButtonTiltLeft;
+    QPushButton* mPushButtonTiltRight;
+
     QLabel* mLabelPathInterval;
 
     QDoubleSpinBox* mDoubleSpinBoxPathInterval;
@@ -64,5 +87,12 @@ private:
 
     QStatusBar* mStatusBar;
 
+    Clipper mClipper;
+
     Mesh mMesh;
+    Mesh mClippedMesh;
+
+    PathGenerator mPathGenerator;
+
+    Plane mPlane;
 };

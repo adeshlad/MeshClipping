@@ -124,7 +124,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>F:\adesh_workspace\MeshClipping\Mesh\headers;F:\adesh_workspace\MeshClipping\Geometry\headers;F:\adesh_workspace\MeshClipping\Clipper\header;F:\adesh_workspace\MeshClipping\Boundary\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>F:\adesh_workspace\MeshClipping\Mesh\headers;F:\adesh_workspace\MeshClipping\Geometry\headers;F:\adesh_workspace\MeshClipping\Clipper\headers;F:\adesh_workspace\MeshClipping\Boundary\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -157,9 +157,9 @@
     <None Include="resources\cpp.hint" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="header\Clipper.h" />
-    <ClInclude Include="header\framework.h" />
-    <ClInclude Include="header\pch.h" />
+    <ClInclude Include="headers\Clipper.h" />
+    <ClInclude Include="headers\framework.h" />
+    <ClInclude Include="headers\pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Clipper.cpp" />

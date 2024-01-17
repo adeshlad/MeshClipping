@@ -21,14 +21,13 @@ public:
 	// finds intersection between Mesh and Plane, return new Boundary object
 	Boundary getMeshPlaneIntersection(const Mesh& inMesh, const Plane& inPlane);
 
-
 private:
-
-	// finds Point where line between 2 Points intersects Plane
-	Point3D linePlaneIntersection(const Point3D& inP1, const Point3D& inP2, const Plane& inPlane);
 
 	// check if Point is above the Plane
 	bool isAbove(const Plane& inPlane, const Point3D& inPoint);
+
+	// finds Point where line between 2 Points intersects Plane
+	Point3D linePlaneIntersection(const Point3D& inP1, const Point3D& inP2, const Plane& inPlane);
 
 	// dot product
 	double dot(const Point3D& inP1, const Point3D& inP2);

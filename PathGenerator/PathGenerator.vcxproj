@@ -124,7 +124,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>F:\adesh_workspace\MeshClipping\Geometry\headers;F:\adesh_workspace\MeshClipping\Mesh\headers;F:\adesh_workspace\MeshClipping\Boundary\headers;F:\adesh_workspace\MeshClipping\PathGenerator\headers;F:\adesh_workspace\MeshClipping\Clipper\header;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>F:\adesh_workspace\MeshClipping\Geometry\headers;F:\adesh_workspace\MeshClipping\Mesh\headers;F:\adesh_workspace\MeshClipping\Boundary\headers;F:\adesh_workspace\MeshClipping\PathGenerator\headers;F:\adesh_workspace\MeshClipping\Clipper\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

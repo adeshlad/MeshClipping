@@ -13,17 +13,12 @@ OpenGLWindow::OpenGLWindow(const QColor& background, QMainWindow* parent) : mBac
 {
     setParent(parent);
     setMinimumSize(550, 450);
-
-    mVertice = QVector<GLfloat>{0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1};
-    mColor = QVector<GLfloat>{ 1, 1 ,1, 1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ,1, 1, 1, 1, 1, 1 };
 }
-
 
 OpenGLWindow::~OpenGLWindow()
 {
     reset();
 }
-
 
 void OpenGLWindow::reset()
 {
@@ -39,7 +34,6 @@ void OpenGLWindow::reset()
     QObject::disconnect(mContextWatchConnection);
 }
 
-
 void OpenGLWindow::setVertices(QVector<GLfloat>& vertices)
 {
     mVertice = vertices;
@@ -52,6 +46,49 @@ void OpenGLWindow::setColors(QVector<GLfloat>& colors)
     update();
 }
 
+void OpenGLWindow::updateData(const QVector<GLfloat>& vertices, const QVector<GLfloat>& colors)
+{
+    mVertice = vertices;
+    mColor = colors;
+    update();
+}
+
+void OpenGLWindow::initializeGL()
+{
+    static const char* vertexShaderSource =
+        "attribute highp vec4 posAttr;\n"
+        "attribute lowp vec4 colAttr;\n"
+        "varying lowp vec4 col;\n"
+        "uniform highp mat4 matrix;\n"
+        "void main() {\n"
+        "   col = colAttr;\n"
+        "   gl_Position = matrix * posAttr;\n"
+        "}\n";
+    
+    static const char* fragmentShaderSource =
+        "varying lowp vec4 col;\n"
+        "void main() {\n"
+        "   gl_FragColor = col;\n"
+        "}\n";
+
+    rotationAngle = QQuaternion::fromAxisAndAngle(0.0f, 0.0f, 1.0f, 0.0f);
+
+    initializeOpenGLFunctions();
+
+    mProgram = new QOpenGLShaderProgram(this);
+    mProgram->addShaderFromSourceCode(QOpenGLShader::Vertex, vertexShaderSource);
+    mProgram->addShaderFromSourceCode(QOpenGLShader::Fragment, fragmentShaderSource);
+    mProgram->link();
+
+    m_posAttr = mProgram->attributeLocation("posAttr");
+    m_colAttr = mProgram->attributeLocation("colAttr");
+
+    m_matrixUniform = mProgram->uniformLocation("matrix");
+
+    if (m_posAttr == -1 || m_colAttr == -1 || m_matrixUniform == -1) {
+        qDebug() << "Shader attribute or uniform location error.";
+    }
+}
 
 void OpenGLWindow::paintGL()
 {
@@ -62,7 +99,6 @@ void OpenGLWindow::paintGL()
     matrix.ortho(-100.0f * scaleFactor, 100.0f * scaleFactor, -100.0f * scaleFactor, 100.0f * scaleFactor, 0.00000000001f, 1000000.0f);
     matrix.translate(0, 0, -15);
     matrix.rotate(rotationAngle);
-    //matrix.scale(scaleFactor);
 
     mProgram->setUniformValue(m_matrixUniform, matrix);
 
@@ -80,13 +116,6 @@ void OpenGLWindow::paintGL()
     glDrawArrays(GL_LINE_LOOP, 0, mVertice.size() / 3);
     //glDrawArrays(GL_TRIANGLES, 0, mVertice.size() / 3);
     //glDrawArrays(GL_QUADS, 0, mVertice.size() / 3);
-}
-
-void OpenGLWindow::updateData(const QVector<GLfloat>& vertices, const QVector<GLfloat>& colors)
-{
-    mVertice = vertices;
-    mColor = colors;
-    update();
 }
 
 void OpenGLWindow::mouseMoveEvent(QMouseEvent* event)
@@ -126,41 +155,4 @@ void OpenGLWindow::zoomOut()
 {
     scaleFactor /= 1.1f;
     update();
-}
-
-void OpenGLWindow::initializeGL()
-{
-    static const char* vertexShaderSource =
-        "attribute highp vec4 posAttr;\n"
-        "attribute lowp vec4 colAttr;\n"
-        "varying lowp vec4 col;\n"
-        "uniform highp mat4 matrix;\n"
-        "void main() {\n"
-        "   col = colAttr;\n"
-        "   gl_Position = matrix * posAttr;\n"
-        "}\n";
-    
-    static const char* fragmentShaderSource =
-        "varying lowp vec4 col;\n"
-        "void main() {\n"
-        "   gl_FragColor = col;\n"
-        "}\n";
-
-    rotationAngle = QQuaternion::fromAxisAndAngle(0.0f, 0.0f, 1.0f, 0.0f);
-
-    initializeOpenGLFunctions();
-
-    mProgram = new QOpenGLShaderProgram(this);
-    mProgram->addShaderFromSourceCode(QOpenGLShader::Vertex, vertexShaderSource);
-    mProgram->addShaderFromSourceCode(QOpenGLShader::Fragment, fragmentShaderSource);
-    mProgram->link();
-
-    m_posAttr = mProgram->attributeLocation("posAttr");
-    m_colAttr = mProgram->attributeLocation("colAttr");
-
-    m_matrixUniform = mProgram->uniformLocation("matrix");
-
-    if (m_posAttr == -1 || m_colAttr == -1 || m_matrixUniform == -1) {
-        qDebug() << "Shader attribute or uniform location error.";
-    }
 }
