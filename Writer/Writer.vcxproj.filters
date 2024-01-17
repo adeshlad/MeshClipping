@@ -18,13 +18,13 @@
     <None Include="resources\cpp.hint" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="header\framework.h">
+    <ClInclude Include="headers\framework.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\Writer.h">
+    <ClInclude Include="headers\Writer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\pch.h">
+    <ClInclude Include="headers\pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
