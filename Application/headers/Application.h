@@ -5,9 +5,9 @@
 
 #include "Clipper.h"
 #include "Mesh.h"
+#include "OpenGLWindow.h"
 #include "PathGenerator.h"
 #include "Plane.h"
-#include "OpenGLWindow.h"
 
 class Application : public QMainWindow
 {
@@ -17,13 +17,12 @@ public:
     Application(QWidget *parent = nullptr);
     ~Application();
 
-
 public slots:
     void importSTL();
     void clearData();
 
-    void addClippingPlane();
     void clipMesh();
+    void addClippingPlane();
 
     void movePlaneUp();
     void movePlaneDown();
@@ -35,7 +34,6 @@ public slots:
 
     void clipMeshWithCustomPlane();
     void generatePath();
-
 
 private:
     void setupUi();
@@ -92,7 +90,6 @@ private:
     Clipper mClipper;
 
     Mesh mMesh;
-
     Mesh mClippedMesh;
 
     PathGenerator mPathGenerator;

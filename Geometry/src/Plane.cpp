@@ -59,6 +59,19 @@ void Plane::moveDown(const double inBy)
 	updateConstant();
 }
 
+void Plane::tiltBack(const double inBy)
+{
+	double by = (1.0 / 90.0) * inBy;
+
+	double normalX = mNormal.x();
+	double normalY = mNormal.y() + by;
+	double normalZ = mNormal.z() - by;
+
+	mNormal = Point3D(normalX, normalY, normalZ);
+
+	updateConstant();
+}
+
 void Plane::tiltFront(const double inBy)
 {
 	double by = (1.0 / 90.0) * inBy;
@@ -72,18 +85,6 @@ void Plane::tiltFront(const double inBy)
 	updateConstant();
 }
 
-void Plane::tiltBack(const double inBy)
-{
-	double by = (1.0 / 90.0) * inBy;
-
-	double normalX = mNormal.x();
-	double normalY = mNormal.y() + by;
-	double normalZ = mNormal.z() - by;
-
-	mNormal = Point3D(normalX, normalY, normalZ);
-
-	updateConstant();
-}
 
 void Plane::tiltLeft(const double inBy)
 {

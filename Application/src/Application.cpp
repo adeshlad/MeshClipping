@@ -242,11 +242,6 @@ void Application::renderMesh(const Mesh& inMesh) const
     mRenderer->updateData(points, colors);
 }
 
-void Application::clipMesh()
-{
-    mClippedMesh = mClipper.clipMeshWithPlane(mMesh, mPlane);
-}
-
 void Application::importSTL()
 {
     QString QfilePath = QFileDialog::getOpenFileName(this, tr("Open STL File"), "", tr("STL Files (*.stl); ; All Files (*)"));
@@ -275,13 +270,18 @@ void Application::clearData()
     mRenderer->updateData(points, colors);
 }
 
+void Application::clipMesh()
+{
+    mClippedMesh = mClipper.clipMeshWithPlane(mMesh, mPlane);
+}
+
 void Application::addClippingPlane()
 {
     double planeX = mMesh.BBoxCenterPoint().x();
-    double planeY = mMesh.BBoxCenterPoint().y();
-    double planeZ = mMesh.BBoxMinPoint().z();
+    double planeY = mMesh.BBoxMinPoint().y();
+    double planeZ = mMesh.BBoxCenterPoint().z();
 
-    mPlane.setPlaneNormal(Point3D(0, 0, 1));
+    mPlane.setPlaneNormal(Point3D(0, 1, 0));
     mPlane.movePlaneToPoint(Point3D(planeX, planeY, planeZ));
 
     clipMesh();
@@ -301,6 +301,13 @@ void Application::movePlaneDown()
     renderMesh(mClippedMesh);
 }
 
+void Application::tiltPlaneBack()
+{
+    mPlane.tiltBack(1.0);
+    clipMesh();
+    renderMesh(mClippedMesh);
+}
+
 void Application::tiltPlaneFront()
 {
     mPlane.tiltFront(1.0);
@@ -308,12 +315,6 @@ void Application::tiltPlaneFront()
     renderMesh(mClippedMesh);
 }
 
-void Application::tiltPlaneBack()
-{
-    mPlane.tiltBack(1.0);
-    clipMesh();
-    renderMesh(mClippedMesh);
-}
 
 void Application::tiltPlaneLeft()
 {
