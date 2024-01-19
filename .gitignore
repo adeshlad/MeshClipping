@@ -365,3 +365,9 @@ FodyWeavers.xsd
 /Application/resources
 /Tester
 /Writer
+/Boundary/resources
+/Clipper/resources
+/Geometry/resources
+/Mesh/resources
+/PathGenerator/resources
+/Reader/resources
